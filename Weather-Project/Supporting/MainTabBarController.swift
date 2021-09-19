@@ -15,7 +15,7 @@ class MainTabBarController: UITabBarController {
     }
     
     private func setTabBarController() {
-        let todayViewController = TodayViewController()
+        let todayViewController = ModuleBuilder.createTodayVC(testRequest())
         let forecastViewController = ForecastViewController()
         self.setViewControllers([todayViewController, forecastViewController], animated: true)
         setTabBarItems()
@@ -33,5 +33,13 @@ class MainTabBarController: UITabBarController {
         tabBarItem2.title = "Forecast"
     }
 
+    private func testRequest() -> TodayResponse {
+         let weather = WeatherToday(main: "Clouds", description: "overcast clouds", icon: "04d")
+         let main = MainToday(temp: 22.65, pressure: 1015.0, humidity: 91.0)
+         let wind = WindToday(speed: 0.83)
+         let clouds = CloudsToday(all: 100.0)
+         let sys = CountryToday(country: "BY")
+         return TodayResponse(name: "Vitebsk", weather: [weather], main: main, wind: wind, clouds: clouds, sys: sys)
+     }
 }
 

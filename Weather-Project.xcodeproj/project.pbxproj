@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D80E803126F74BEF006F5EA7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803026F74BEF006F5EA7 /* MainTabBarController.swift */; };
+		D80E803326F75C44006F5EA7 /* SettingsTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803226F75C44006F5EA7 /* SettingsTodayViewController.swift */; };
+		D80E803726F76355006F5EA7 /* WeatherIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803626F76355006F5EA7 /* WeatherIcons.swift */; };
+		D80E803926F76BEB006F5EA7 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803826F76BEB006F5EA7 /* Builder.swift */; };
 		D8E128E326F731550094673F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E128E226F731550094673F /* AppDelegate.swift */; };
 		D8E128E526F731550094673F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E128E426F731550094673F /* SceneDelegate.swift */; };
 		D8E128EC26F7315C0094673F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8E128EB26F7315C0094673F /* Assets.xcassets */; };
@@ -21,7 +24,6 @@
 		D8E1292526F7349D0094673F /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292426F7349D0094673F /* ForecastView.swift */; };
 		D8E1292726F734AC0094673F /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292626F734AC0094673F /* ForecastViewController.swift */; };
 		D8E1292926F734D20094673F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292826F734D20094673F /* TodayViewController.swift */; };
-		D8E1292B26F734E10094673F /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292A26F734E10094673F /* TodayView.swift */; };
 		D8E1293026F735900094673F /* NetworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292F26F735900094673F /* NetworkServices.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +46,9 @@
 
 /* Begin PBXFileReference section */
 		D80E803026F74BEF006F5EA7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		D80E803226F75C44006F5EA7 /* SettingsTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTodayViewController.swift; sourceTree = "<group>"; };
+		D80E803626F76355006F5EA7 /* WeatherIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIcons.swift; sourceTree = "<group>"; };
+		D80E803826F76BEB006F5EA7 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		D8E128DF26F731550094673F /* Weather-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E128E226F731550094673F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8E128E426F731550094673F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,7 +68,6 @@
 		D8E1292426F7349D0094673F /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		D8E1292626F734AC0094673F /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		D8E1292826F734D20094673F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		D8E1292A26F734E10094673F /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		D8E1292F26F735900094673F /* NetworkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D80E803426F76328006F5EA7 /* General Models */ = {
+			isa = PBXGroup;
+			children = (
+				D80E803626F76355006F5EA7 /* WeatherIcons.swift */,
+			);
+			path = "General Models";
+			sourceTree = "<group>";
+		};
 		D8E128D626F731540094673F = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +157,9 @@
 		D8E1291226F732070094673F /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				D80E803426F76328006F5EA7 /* General Models */,
 				D8E128E226F731550094673F /* AppDelegate.swift */,
+				D80E803826F76BEB006F5EA7 /* Builder.swift */,
 				D8E128E426F731550094673F /* SceneDelegate.swift */,
 				D8E128ED26F7315C0094673F /* LaunchScreen.storyboard */,
 				D80E803026F74BEF006F5EA7 /* MainTabBarController.swift */,
@@ -199,8 +213,8 @@
 		D8E1292126F734320094673F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D8E1292A26F734E10094673F /* TodayView.swift */,
 				D8E1292826F734D20094673F /* TodayViewController.swift */,
+				D80E803226F75C44006F5EA7 /* SettingsTodayViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -364,14 +378,16 @@
 				D8E1291526F7331D0094673F /* TodayModel.swift in Sources */,
 				D8E128E326F731550094673F /* AppDelegate.swift in Sources */,
 				D80E803126F74BEF006F5EA7 /* MainTabBarController.swift in Sources */,
+				D80E803326F75C44006F5EA7 /* SettingsTodayViewController.swift in Sources */,
 				D8E1292926F734D20094673F /* TodayViewController.swift in Sources */,
 				D8E1291E26F733C10094673F /* ForecastPresenter.swift in Sources */,
+				D80E803726F76355006F5EA7 /* WeatherIcons.swift in Sources */,
 				D8E1291726F733260094673F /* ForecastModel.swift in Sources */,
 				D8E1292526F7349D0094673F /* ForecastView.swift in Sources */,
+				D80E803926F76BEB006F5EA7 /* Builder.swift in Sources */,
 				D8E1293026F735900094673F /* NetworkServices.swift in Sources */,
 				D8E1292726F734AC0094673F /* ForecastViewController.swift in Sources */,
 				D8E1291B26F733A40094673F /* TodayPresenter.swift in Sources */,
-				D8E1292B26F734E10094673F /* TodayView.swift in Sources */,
 				D8E128E526F731550094673F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

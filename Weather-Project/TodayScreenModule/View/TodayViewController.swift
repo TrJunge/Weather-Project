@@ -8,22 +8,56 @@
 import UIKit
 
 class TodayViewController: UIViewController {
-
+    
+    lazy var navigationBar: UINavigationBar = setNavigationBar()
+    lazy var imageWeatherView: UIImageView = setImageWeatherView()
+    lazy var nameCountryLabel: UILabel = setNameCountryLabel()
+    lazy var temperatureLabel: UILabel = setTemperatureLabel()
+    lazy var mainTopStackView: UIStackView = setMainTopStackView()
+    lazy var humidityLabel: UILabel = setHumidityLabel()
+    lazy var humidityStackView: UIStackView = setHumidityStackView()
+    lazy var cloudsLabel: UILabel = setCloudsLabel()
+    lazy var cloudyStackView: UIStackView = setCloudyStackView()
+    lazy var pressureLabel: UILabel = setPressureLabel()
+    lazy var pressureStackView: UIStackView = setPressureStackView()
+    lazy var firstMiddleStackView: UIStackView = setFirstMiddleStackView()
+    lazy var windLabel: UILabel = setWindLabel()
+    lazy var windStackView: UIStackView = setWindStackView()
+    lazy var polesLabel: UILabel = setPolesLabel()
+    lazy var polesStackView: UIStackView = setPolesStackView()
+    lazy var secondMiddleStackView: UIStackView = setSecondMiddleStackView()
+    lazy var mainMiddleStackView: UIStackView = setMainMiddleStackView()
+    lazy var shareButton: UIButton = setShareButton()
+    
+    var presenter: TodayViewPresenterProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .yellow
-        // Do any additional setup after loading the view.
+        self.setView()
+        self.presenter.showWeatherToday()
+        
+        self.setupSubviews()
+        self.setupConstraints()
+    }
+    
+    private func setView() {
+        self.view.backgroundColor = .systemBackground
+    }
+}
+
+extension TodayViewController: TodayControllerProtocol {
+    func setWeatherToday(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String) {
+        imageWeatherView.image = UIImage(systemName: imageName)
+        nameCountryLabel.text = "\(country.name), \(country.shortName)"
+        temperatureLabel.text =  "\(temperature.degrees)°C | \("\(temperature.description)")"
+        humidityLabel.text = "\(humidity)%"
+        cloudsLabel.text = "\(clouds)%"
+        pressureLabel.text = "\(pressure) hPa"
+        windLabel.text = "\(wind) km/h"
+        polesLabel.text = poles
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
+    
 }
