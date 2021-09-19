@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D80E803126F74BEF006F5EA7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803026F74BEF006F5EA7 /* MainTabBarController.swift */; };
 		D8E128E326F731550094673F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E128E226F731550094673F /* AppDelegate.swift */; };
 		D8E128E526F731550094673F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E128E426F731550094673F /* SceneDelegate.swift */; };
 		D8E128EC26F7315C0094673F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8E128EB26F7315C0094673F /* Assets.xcassets */; };
@@ -21,7 +22,6 @@
 		D8E1292726F734AC0094673F /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292626F734AC0094673F /* ForecastViewController.swift */; };
 		D8E1292926F734D20094673F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292826F734D20094673F /* TodayViewController.swift */; };
 		D8E1292B26F734E10094673F /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292A26F734E10094673F /* TodayView.swift */; };
-		D8E1292D26F735080094673F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292C26F735080094673F /* MainTabViewController.swift */; };
 		D8E1293026F735900094673F /* NetworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292F26F735900094673F /* NetworkServices.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D80E803026F74BEF006F5EA7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		D8E128DF26F731550094673F /* Weather-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E128E226F731550094673F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8E128E426F731550094673F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,7 +64,6 @@
 		D8E1292626F734AC0094673F /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		D8E1292826F734D20094673F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		D8E1292A26F734E10094673F /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
-		D8E1292C26F735080094673F /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		D8E1292F26F735900094673F /* NetworkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,7 +148,7 @@
 				D8E128E226F731550094673F /* AppDelegate.swift */,
 				D8E128E426F731550094673F /* SceneDelegate.swift */,
 				D8E128ED26F7315C0094673F /* LaunchScreen.storyboard */,
-				D8E1292C26F735080094673F /* MainTabViewController.swift */,
+				D80E803026F74BEF006F5EA7 /* MainTabBarController.swift */,
 				D8E128EB26F7315C0094673F /* Assets.xcassets */,
 			);
 			path = Supporting;
@@ -363,12 +363,12 @@
 			files = (
 				D8E1291526F7331D0094673F /* TodayModel.swift in Sources */,
 				D8E128E326F731550094673F /* AppDelegate.swift in Sources */,
+				D80E803126F74BEF006F5EA7 /* MainTabBarController.swift in Sources */,
 				D8E1292926F734D20094673F /* TodayViewController.swift in Sources */,
 				D8E1291E26F733C10094673F /* ForecastPresenter.swift in Sources */,
 				D8E1291726F733260094673F /* ForecastModel.swift in Sources */,
 				D8E1292526F7349D0094673F /* ForecastView.swift in Sources */,
 				D8E1293026F735900094673F /* NetworkServices.swift in Sources */,
-				D8E1292D26F735080094673F /* MainTabViewController.swift in Sources */,
 				D8E1292726F734AC0094673F /* ForecastViewController.swift in Sources */,
 				D8E1291B26F733A40094673F /* TodayPresenter.swift in Sources */,
 				D8E1292B26F734E10094673F /* TodayView.swift in Sources */,
