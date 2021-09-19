@@ -34,7 +34,7 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setView()
-        self.presenter.showWeatherToday()
+        self.presenter.setComponents()
         
         self.setupSubviews()
         self.setupConstraints()
@@ -45,8 +45,8 @@ class TodayViewController: UIViewController {
     }
 }
 
-extension TodayViewController: TodayControllerProtocol {
-    func setWeatherToday(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String) {
+extension TodayViewController: TodayViewProtocol {
+    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String) {
         imageWeatherView.image = UIImage(systemName: imageName)
         nameCountryLabel.text = "\(country.name), \(country.shortName)"
         temperatureLabel.text =  "\(temperature.degrees)°C | \("\(temperature.description)")"
@@ -57,7 +57,15 @@ extension TodayViewController: TodayControllerProtocol {
         polesLabel.text = poles
     }
     
-
-    
-    
+    func failure(error: Error) {
+        print(error)
+        imageWeatherView.image = UIImage(systemName: "sun.max")
+        nameCountryLabel.text = "-"
+        temperatureLabel.text =  "-°C | -"
+        humidityLabel.text = "-%"
+        cloudsLabel.text = "-%"
+        pressureLabel.text = "- hPa"
+        windLabel.text = "- km/h"
+        polesLabel.text = "-"
+    }
 }

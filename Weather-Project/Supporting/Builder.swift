@@ -7,15 +7,18 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 protocol Builder {
-    static func createTodayVC(_ model: TodayResponse) -> UIViewController
+    static func createTodayVC() -> UIViewController
 }
 
 class ModuleBuilder: Builder {
-    static func createTodayVC(_ model: TodayResponse) -> UIViewController {
+    static func createTodayVC() -> UIViewController {
         let view = TodayViewController()
-        let presenter = TodayPresenter(view: view, modelTodayResponse: model)
+        let networkServices = NetworkService()
+        let locationService = LocationService()
+        let presenter = TodayPresenter(view: view, networkServices: networkServices, locationService: locationService)
         view.presenter = presenter
         return view
     }

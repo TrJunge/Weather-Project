@@ -42,7 +42,13 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Yes</string>
+	<string>This app uses your location to check the weather in your area. In Use Usage.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app uses your location to check the weather in your area. When In Use.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app uses your location to check the weather in your area. Always.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>This app uses your location to check the weather in your area. Usage.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
