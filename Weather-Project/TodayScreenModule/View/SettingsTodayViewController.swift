@@ -12,15 +12,15 @@ extension TodayViewController {
         let navBar = UINavigationBar()
         navBar.prefersLargeTitles = false
         navBar.isTranslucent = false
-        let navItem = UINavigationItem(title: "Today")
-        navBar.setItems([navItem], animated: true);
         navBar.barTintColor = .systemBackground
         navBar.translatesAutoresizingMaskIntoConstraints = false
+        let navItem = UINavigationItem(title: "Today")
+        navBar.setItems([navItem], animated: true);
         return navBar
     }
     
     func setImageWeatherView() -> UIImageView {
-        let imageView = UIImageView()
+        let imageView = UIImageView(image: UIImage(systemName: "sun.min"))
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(120))
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .systemYellow
@@ -30,13 +30,15 @@ extension TodayViewController {
     func setNameCountryLabel() -> UILabel {
         let label = UILabel()
         label.textAlignment = .center
+        label.text = "--"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
     
     func setTemperatureLabel() -> UILabel {
-        let label = UILabel()
+        let label = UILabel(frame: CGRect(origin: CGPoint(), size: CGSize(width: view.frame.width, height: 50)))
         label.textAlignment = .center
+        label.text = "--"
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 26)
         label.textColor = .link
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +56,7 @@ extension TodayViewController {
     
     func setHumidityLabel() -> UILabel {
         let label = UILabel()
+        label.text = "--"
         label.textAlignment = .center
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
         return label
@@ -75,6 +78,7 @@ extension TodayViewController {
     func setCloudsLabel() -> UILabel {
         let label = UILabel()
         label.textAlignment = .center
+        label.text = "--"
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
         return label
     }
@@ -95,6 +99,7 @@ extension TodayViewController {
     func setPressureLabel() -> UILabel {
         let label = UILabel()
         label.textAlignment = .center
+        label.text = "--"
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
         return label
     }
@@ -125,6 +130,7 @@ extension TodayViewController {
     func setWindLabel() -> UILabel {
         let label = UILabel()
         label.textAlignment = .center
+        label.text = "--"
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
         return label
     }
@@ -145,7 +151,7 @@ extension TodayViewController {
     
     func setPolesLabel() -> UILabel {
         let label = UILabel()
-
+        label.text = "--"
         label.textAlignment = .center
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 10)
         return label
@@ -208,7 +214,7 @@ extension TodayViewController {
         
         mainTopStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 70).isActive = true
         mainTopStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        mainTopStackView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        mainTopStackView.heightAnchor.constraint(equalToConstant: 220).isActive = true
         
         mainMiddleStackView.topAnchor.constraint(equalTo: mainTopStackView.bottomAnchor, constant: 70).isActive = true
         mainMiddleStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true

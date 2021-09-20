@@ -34,7 +34,6 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setView()
-        self.presenter.setComponents()
         
         self.setupSubviews()
         self.setupConstraints()
@@ -46,6 +45,7 @@ class TodayViewController: UIViewController {
 }
 
 extension TodayViewController: TodayViewProtocol {
+    
     func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String) {
         imageWeatherView.image = UIImage(systemName: imageName)
         nameCountryLabel.text = "\(country.name), \(country.shortName)"

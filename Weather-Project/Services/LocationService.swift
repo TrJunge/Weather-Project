@@ -11,13 +11,13 @@ import UIKit
 
 protocol LocationServiceProtocol {
     var coordinate: CLLocationCoordinate2D! { get set }
-    var cardinalPoints: String? { get set }
+    var cardinalPoints: String! { get set }
 }
 
 class LocationService: NSObject, LocationServiceProtocol {
     fileprivate let locationManager = CLLocationManager()
     var coordinate: CLLocationCoordinate2D!
-    var cardinalPoints: String?
+    var cardinalPoints: String!
     
     override init() {
         super.init()
@@ -48,7 +48,6 @@ extension LocationService: CLLocationManagerDelegate {
             coordinate = location.coordinate
             locationManager.stopUpdatingLocation()
         }
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {

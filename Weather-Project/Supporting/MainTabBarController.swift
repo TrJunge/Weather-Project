@@ -19,8 +19,8 @@ class MainTabBarController: UITabBarController {
     }
     
     private func setTabBarController() {
-        let todayViewController = ModuleBuilder.createTodayVC()
-        let forecastViewController = ForecastViewController()
+        let todayViewController = ModuleBuilder.createTodayViewController()
+        let forecastViewController = ModuleBuilder.createForecastViewController()
         self.setViewControllers([todayViewController, forecastViewController], animated: true)
         setTabBarItems()
     }

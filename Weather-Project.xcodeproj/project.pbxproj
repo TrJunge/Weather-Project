@@ -12,6 +12,8 @@
 		D80E803726F76355006F5EA7 /* WeatherIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803626F76355006F5EA7 /* WeatherIcons.swift */; };
 		D80E803926F76BEB006F5EA7 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803826F76BEB006F5EA7 /* Builder.swift */; };
 		D80E803B26F7A470006F5EA7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803A26F7A470006F5EA7 /* LocationService.swift */; };
+		D80E803D26F7E4A4006F5EA7 /* SettingsForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803C26F7E4A4006F5EA7 /* SettingsForecastViewController.swift */; };
+		D80E804026F7E701006F5EA7 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80E803F26F7E701006F5EA7 /* TableViewCell.swift */; };
 		D8E128E326F731550094673F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E128E226F731550094673F /* AppDelegate.swift */; };
 		D8E128E526F731550094673F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E128E426F731550094673F /* SceneDelegate.swift */; };
 		D8E128EC26F7315C0094673F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8E128EB26F7315C0094673F /* Assets.xcassets */; };
@@ -22,7 +24,6 @@
 		D8E1291726F733260094673F /* ForecastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1291626F733260094673F /* ForecastModel.swift */; };
 		D8E1291B26F733A40094673F /* TodayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1291A26F733A40094673F /* TodayPresenter.swift */; };
 		D8E1291E26F733C10094673F /* ForecastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1291D26F733C10094673F /* ForecastPresenter.swift */; };
-		D8E1292526F7349D0094673F /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292426F7349D0094673F /* ForecastView.swift */; };
 		D8E1292726F734AC0094673F /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292626F734AC0094673F /* ForecastViewController.swift */; };
 		D8E1292926F734D20094673F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292826F734D20094673F /* TodayViewController.swift */; };
 		D8E1293026F735900094673F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1292F26F735900094673F /* NetworkService.swift */; };
@@ -51,6 +52,8 @@
 		D80E803626F76355006F5EA7 /* WeatherIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIcons.swift; sourceTree = "<group>"; };
 		D80E803826F76BEB006F5EA7 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		D80E803A26F7A470006F5EA7 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		D80E803C26F7E4A4006F5EA7 /* SettingsForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsForecastViewController.swift; sourceTree = "<group>"; };
+		D80E803F26F7E701006F5EA7 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		D8E128DF26F731550094673F /* Weather-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E128E226F731550094673F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8E128E426F731550094673F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +70,6 @@
 		D8E1291626F733260094673F /* ForecastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastModel.swift; sourceTree = "<group>"; };
 		D8E1291A26F733A40094673F /* TodayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenter.swift; sourceTree = "<group>"; };
 		D8E1291D26F733C10094673F /* ForecastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastPresenter.swift; sourceTree = "<group>"; };
-		D8E1292426F7349D0094673F /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		D8E1292626F734AC0094673F /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		D8E1292826F734D20094673F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		D8E1292F26F735900094673F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -104,6 +106,14 @@
 				D80E803626F76355006F5EA7 /* WeatherIcons.swift */,
 			);
 			path = "General Models";
+			sourceTree = "<group>";
+		};
+		D80E803E26F7E6D9006F5EA7 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D80E803F26F7E701006F5EA7 /* TableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		D8E128D626F731540094673F = {
@@ -170,12 +180,12 @@
 			path = Supporting;
 			sourceTree = "<group>";
 		};
-		D8E1291326F7327A0094673F /* Models */ = {
+		D8E1291326F7327A0094673F /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				D8E1291626F733260094673F /* ForecastModel.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D8E1291826F733530094673F /* Presenter */ = {
@@ -197,19 +207,19 @@
 		D8E1291F26F733F70094673F /* TodayScreenModule */ = {
 			isa = PBXGroup;
 			children = (
-				D8E1292026F7340F0094673F /* Models */,
+				D8E1292026F7340F0094673F /* Model */,
 				D8E1292126F734320094673F /* View */,
 				D8E1291826F733530094673F /* Presenter */,
 			);
 			path = TodayScreenModule;
 			sourceTree = "<group>";
 		};
-		D8E1292026F7340F0094673F /* Models */ = {
+		D8E1292026F7340F0094673F /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				D8E1291426F7331D0094673F /* TodayModel.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D8E1292126F734320094673F /* View */ = {
@@ -224,7 +234,7 @@
 		D8E1292226F7343B0094673F /* ForecastScreenModule */ = {
 			isa = PBXGroup;
 			children = (
-				D8E1291326F7327A0094673F /* Models */,
+				D8E1291326F7327A0094673F /* Model */,
 				D8E1292326F7344C0094673F /* View */,
 				D8E1291926F733720094673F /* Presenter */,
 			);
@@ -234,8 +244,9 @@
 		D8E1292326F7344C0094673F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D8E1292426F7349D0094673F /* ForecastView.swift */,
+				D80E803E26F7E6D9006F5EA7 /* TableViewCell */,
 				D8E1292626F734AC0094673F /* ForecastViewController.swift */,
+				D80E803C26F7E4A4006F5EA7 /* SettingsForecastViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -379,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8E1291526F7331D0094673F /* TodayModel.swift in Sources */,
+				D80E804026F7E701006F5EA7 /* TableViewCell.swift in Sources */,
 				D8E128E326F731550094673F /* AppDelegate.swift in Sources */,
 				D80E803126F74BEF006F5EA7 /* MainTabBarController.swift in Sources */,
 				D80E803326F75C44006F5EA7 /* SettingsTodayViewController.swift in Sources */,
@@ -387,9 +399,9 @@
 				D80E803726F76355006F5EA7 /* WeatherIcons.swift in Sources */,
 				D80E803B26F7A470006F5EA7 /* LocationService.swift in Sources */,
 				D8E1291726F733260094673F /* ForecastModel.swift in Sources */,
-				D8E1292526F7349D0094673F /* ForecastView.swift in Sources */,
 				D80E803926F76BEB006F5EA7 /* Builder.swift in Sources */,
 				D8E1293026F735900094673F /* NetworkService.swift in Sources */,
+				D80E803D26F7E4A4006F5EA7 /* SettingsForecastViewController.swift in Sources */,
 				D8E1292726F734AC0094673F /* ForecastViewController.swift in Sources */,
 				D8E1291B26F733A40094673F /* TodayPresenter.swift in Sources */,
 				D8E128E526F731550094673F /* SceneDelegate.swift in Sources */,
