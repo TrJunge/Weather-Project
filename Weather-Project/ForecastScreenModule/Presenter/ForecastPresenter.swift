@@ -63,7 +63,7 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
     
     private func setupModelForecastOnSections(model modelForecastResponseList: ForecastResponseList) {
         var model = modelForecastResponseList
-        var forecastDate = CurrentDate.getFormatterDate()
+        var forecastDate = CurrentDate.getFormatterDate(dateFormat: "YYYY-MM-dd")
         var indexSection = 0
         markIndexSection: while model.list.count > 0  {
             
@@ -72,9 +72,8 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
             } else {
                 
                 for forecastResponse in model.list {
-                    let forecastResponseDateIndex = forecastResponse.dt_txt.firstIndex(of: " ") ??
-                        forecastResponse.dt_txt.endIndex
-                    let forecastResponseDate = String(forecastResponse.dt_txt[..<forecastResponseDateIndex])
+                    let index = forecastResponse.dt_txt.firstIndex(of: " ") ?? forecastResponse.dt_txt.endIndex
+                    let forecastResponseDate = String(forecastResponse.dt_txt[..<index])
                     
                     if forecastDate == forecastResponseDate {
                         modelForecastOnSections["\(indexSection)"]?.append(forecastResponse)
@@ -96,8 +95,8 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
         guard let weatherFromSection = modelForecastOnSections["\(section)"]?[0] else {
             return "Error"
         }
-        let weatherDateIndex = weatherFromSection.dt_txt.firstIndex(of: " ") ?? weatherFromSection.dt_txt.endIndex
-        let weatherDateInSection = String(weatherFromSection.dt_txt[..<weatherDateIndex])
+        let index = weatherFromSection.dt_txt.firstIndex(of: " ") ?? weatherFromSection.dt_txt.endIndex
+        let weatherDateInSection = String(weatherFromSection.dt_txt[..<index])
         let weatherDateArray = weatherDateInSection.components(separatedBy: "-")
         
         var dateComponents = DateComponents()
@@ -107,7 +106,7 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
         
         let weatherDate = calendar.date(from: dateComponents)!
         let numberWeekDay = calendar.component(.weekday, from: weatherDate)
-        return setSectionOnDate(numberWeekDay)
+        return setSectionOnDate(numberWeekDay).uppercased()
     }
     
     private func setSectionOnDate(_ weekDay: Int) -> String {

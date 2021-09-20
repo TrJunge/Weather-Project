@@ -47,10 +47,10 @@ extension TodayViewController {
     
     func setMainTopStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [imageWeatherView, nameCountryLabel, temperatureLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }
     
@@ -120,10 +120,10 @@ extension TodayViewController {
     
     func setFirstMiddleStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [humidityStackView, cloudyStackView, pressureStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 0
         stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }
     
@@ -143,9 +143,9 @@ extension TodayViewController {
         imageView.tintColor = .systemYellow
 
         let stackView = UIStackView(arrangedSubviews: [imageView, windLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 3
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }
     
@@ -165,27 +165,27 @@ extension TodayViewController {
         imageView.tintColor = .systemYellow
 
         let stackView = UIStackView(arrangedSubviews: [imageView, polesLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 3
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }
     
     func setSecondMiddleStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [windStackView, polesStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 0
         stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }
     
     func setMainMiddleStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [firstMiddleStackView, secondMiddleStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }
     

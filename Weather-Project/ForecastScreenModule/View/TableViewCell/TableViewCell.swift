@@ -18,14 +18,16 @@ class TableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupAddSubview()
-        
+        self.setupComponents()
+        self.setupConstraints()
+    }
+    
+    private func setupComponents() {
         self.setWeatherImageView()
         self.setTimeLabel()
         self.setDescriptionLabel()
         self.setMainStackView()
         self.setTemperatureLabel()
-        
-        self.setupConstraints()
     }
     
     required init?(coder: NSCoder) {

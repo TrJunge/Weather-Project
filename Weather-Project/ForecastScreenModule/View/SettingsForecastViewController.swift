@@ -20,8 +20,10 @@ extension ForecastViewController {
     }
     
     func setTableView() -> UITableView {
+//        let tableView = UITableView(frame: view.frame, style: .insetGrouped
         let tableView = UITableView(frame: view.frame, style: .plain)
         tableView.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: headerIdentifier)
         tableView.rowHeight = 100
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView

@@ -6,13 +6,9 @@
 //
 
 import UIKit
-import CoreLocation
 
 class MainTabBarController: UITabBarController {
 
-    var coordinate: CLLocationCoordinate2D!
-    var heading: CLHeading!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTabBarController()

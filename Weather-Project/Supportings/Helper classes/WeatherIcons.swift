@@ -5,13 +5,11 @@
 //  Created by Влад Артемкин on 19.09.21.
 //
 
-import Foundation
-
 class WeatherIcons {
     // провести тесты!
     // уточнить про static
-    static func getImage(index: String) -> String {
-        switch index {
+    static func getImage(_ iconIndex: String) -> String {
+        switch iconIndex {
         case "01n":
             return "moon.stars"
         case "01d":

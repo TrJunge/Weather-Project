@@ -5,9 +5,7 @@
 //  Created by Влад Артемкин on 19.09.21.
 //
 
-import Foundation
 import CoreLocation
-import UIKit
 
 protocol LocationServiceProtocol {
     var coordinate: CLLocationCoordinate2D! { get set }
@@ -42,6 +40,7 @@ class LocationService: NSObject, LocationServiceProtocol {
     }
 }
 
+// MARK: CLLocationManagerDelegate
 extension LocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {

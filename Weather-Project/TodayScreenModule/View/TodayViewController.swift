@@ -35,14 +35,13 @@ class TodayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setView()
-        
-        self.setupSubviews()
-        self.setupConstraints()
+        self.setupView()
     }
     
-    private func setView() {
+    private func setupView() {
         self.view.backgroundColor = .systemBackground
+        self.setupSubviews()
+        self.setupConstraints()
     }
     
     @objc func share() {

@@ -7,11 +7,6 @@
 
 import UIKit
 import CoreLocation
-//
-//protocol AnyViewProtocol: AnyObject {
-//    func success()
-//    func failure(error: Error)
-//}
 
 protocol TodayViewProtocol: AnyObject {
     func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String, textToShare: String)
@@ -19,7 +14,6 @@ protocol TodayViewProtocol: AnyObject {
 }
 
 protocol TodayViewPresenterProtocol: AnyObject{
-//    var modelTodayResponse: TodayResponse? { get set }
     init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol)
     func getNetworkResponse()
     func setComponents()
@@ -63,7 +57,7 @@ class TodayPresenter: TodayViewPresenterProtocol {
     
     func setComponents() {
         guard let modelTodayResponse = modelTodayResponse else { return }
-        view?.success(imageName: WeatherIcons.getImage(index: modelTodayResponse.weather[0].icon),
+        view?.success(imageName: WeatherIcons.getImage(modelTodayResponse.weather[0].icon),
                                   country: (modelTodayResponse.name, modelTodayResponse.sys.country),
                                   temperature: (String(Int(modelTodayResponse.main.temp)), modelTodayResponse.weather[0].main),
                                   humidity: String(Int(modelTodayResponse.main.humidity)),
@@ -76,7 +70,6 @@ class TodayPresenter: TodayViewPresenterProtocol {
     
     private func setupTextForShare() -> String {
         guard let modelTodayResponse = modelTodayResponse else { return ""}
-        
-        return "Weather forecast from \(modelTodayResponse.name):\nFor \(CurrentDate.getFormatterDate())\nTemperature \(Int(modelTodayResponse.main.temp)) | \(modelTodayResponse.weather[0].main) \n - Humidity: \(Int(modelTodayResponse.main.humidity)) \n - Clouds: \(Int(modelTodayResponse.clouds.all)) \n - Pressure: \(Int(modelTodayResponse.main.pressure)) \n - Wind: \(modelTodayResponse.wind.speed) \n - Poles: \(locationService.cardinalPoints ?? "--")"
+        return "Weather forecast from \(modelTodayResponse.name):\nFor \(CurrentDate.getFormatterDate(dateFormat: "dd.MM.YYYY | HH:mm:ss"))\nTemperature \(Int(modelTodayResponse.main.temp))ºC | \(modelTodayResponse.weather[0].main)\n - Humidity: \(Int(modelTodayResponse.main.humidity))%\n - Clouds: \(Int(modelTodayResponse.clouds.all))%\n - Pressure: \(Int(modelTodayResponse.main.pressure)) hPa\n - Wind: \(modelTodayResponse.wind.speed) km/h\n - Poles: \(locationService.cardinalPoints ?? "--")"
     }
 }
