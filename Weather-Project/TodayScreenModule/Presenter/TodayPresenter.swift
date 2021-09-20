@@ -20,12 +20,9 @@ protocol TodayViewProtocol: AnyObject {
 
 protocol TodayViewPresenterProtocol: AnyObject{
     var modelTodayResponse: TodayResponse? { get set }
-    
     init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol)
-    
-    func setComponents()
     func getNetworkResponse()
-
+    func setComponents()
 }
 
 class TodayPresenter: TodayViewPresenterProtocol {
@@ -40,7 +37,6 @@ class TodayPresenter: TodayViewPresenterProtocol {
         self.view = view
         self.networkServices = networkServices
         self.locationService = locationService
-        
         DispatchQueue.main.async {
             self.getNetworkResponse()
         }

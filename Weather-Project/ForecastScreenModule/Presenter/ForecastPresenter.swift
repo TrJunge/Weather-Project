@@ -14,12 +14,11 @@ protocol ForecastViewProtocol: AnyObject {
 }
 
 protocol ForecastViewPresenterProtocol: AnyObject {
+    var modelForecastOnSections: [String:[Forecast]] { get set }
     init(view: ForecastViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol)
-//    var modelForecastResponseList: ForecastResponseList? { get set }
-    func setComponents()
     func setSection(_ section: Int) -> String
     func getNetworkResponse()
-    var modelForecastOnSections: [String:[Forecast]] { get set }
+    func setComponents()
 }
 
 class ForecastPresenter: ForecastViewPresenterProtocol {
@@ -62,7 +61,7 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
         }
     }
     
-    func setupModelForecastOnSections(model modelForecastResponseList: ForecastResponseList) {
+    private func setupModelForecastOnSections(model modelForecastResponseList: ForecastResponseList) {
         var model = modelForecastResponseList
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd"
