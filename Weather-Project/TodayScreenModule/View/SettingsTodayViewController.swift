@@ -193,6 +193,7 @@ extension TodayViewController {
         let button = UIButton()
         button.setTitle("Share", for: .normal)
         button.setTitleColor(.systemRed, for: .normal)
+        button.addTarget(self, action: Selector(("share")), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }

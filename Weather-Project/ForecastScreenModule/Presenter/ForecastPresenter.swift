@@ -63,11 +63,7 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
     
     private func setupModelForecastOnSections(model modelForecastResponseList: ForecastResponseList) {
         var model = modelForecastResponseList
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-dd"
-        formatter.timeZone = TimeZone.current // указатель временной зоны
-        var forecastDate = formatter.string(from: Date())
-        
+        var forecastDate = CurrentDate.getFormatterDate()
         var indexSection = 0
         markIndexSection: while model.list.count > 0  {
             

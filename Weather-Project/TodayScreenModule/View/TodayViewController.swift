@@ -31,6 +31,8 @@ class TodayViewController: UIViewController {
     
     var presenter: TodayViewPresenterProtocol!
     
+    private var textToShare = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setView()
@@ -42,30 +44,44 @@ class TodayViewController: UIViewController {
     private func setView() {
         self.view.backgroundColor = .systemBackground
     }
+    
+    @objc func share() {
+        let firstActivityItem = textToShare
+        let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [firstActivityItem], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [
+            UIActivity.ActivityType.airDrop,
+            UIActivity.ActivityType.addToReadingList,
+            UIActivity.ActivityType.saveToCameraRoll
+        ]
+        
+        self.present(activityViewController, animated: true, completion: nil)
+    }
 }
 
 extension TodayViewController: TodayViewProtocol {
     
-    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String) {
-        imageWeatherView.image = UIImage(systemName: imageName)
-        nameCountryLabel.text = "\(country.name), \(country.shortName)"
-        temperatureLabel.text =  "\(temperature.degrees)°C | \("\(temperature.description)")"
-        humidityLabel.text = "\(humidity)%"
-        cloudsLabel.text = "\(clouds)%"
-        pressureLabel.text = "\(pressure) hPa"
-        windLabel.text = "\(wind) km/h"
-        polesLabel.text = poles
+    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String, textToShare: String) {
+        self.imageWeatherView.image = UIImage(systemName: imageName)
+        self.nameCountryLabel.text = "\(country.name), \(country.shortName)"
+        self.temperatureLabel.text =  "\(temperature.degrees)°C | \("\(temperature.description)")"
+        self.humidityLabel.text = "\(humidity)%"
+        self.cloudsLabel.text = "\(clouds)%"
+        self.pressureLabel.text = "\(pressure) hPa"
+        self.windLabel.text = "\(wind) km/h"
+        self.polesLabel.text = poles
+        self.textToShare = textToShare
     }
     
     func failure(error: Error) {
         print(error)
-        imageWeatherView.image = UIImage(systemName: "sun.max")
-        nameCountryLabel.text = "-"
-        temperatureLabel.text =  "-°C | -"
-        humidityLabel.text = "-%"
-        cloudsLabel.text = "-%"
-        pressureLabel.text = "- hPa"
-        windLabel.text = "- km/h"
-        polesLabel.text = "-"
+        self.imageWeatherView.image = UIImage(systemName: "sun.max")
+        self.nameCountryLabel.text = "-"
+        self.temperatureLabel.text =  "-°C | -"
+        self.humidityLabel.text = "-%"
+        self.cloudsLabel.text = "-%"
+        self.pressureLabel.text = "- hPa"
+        self.windLabel.text = "- km/h"
+        self.polesLabel.text = "-"
+     
     }
 }

@@ -14,12 +14,12 @@ import CoreLocation
 //}
 
 protocol TodayViewProtocol: AnyObject {
-    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String)
+    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String, textToShare: String)
     func failure(error: Error)
 }
 
 protocol TodayViewPresenterProtocol: AnyObject{
-    var modelTodayResponse: TodayResponse? { get set }
+//    var modelTodayResponse: TodayResponse? { get set }
     init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol)
     func getNetworkResponse()
     func setComponents()
@@ -29,9 +29,7 @@ class TodayPresenter: TodayViewPresenterProtocol {
     weak var view: TodayViewProtocol?
     let networkServices: NetworkServiceProtocol!
     let locationService: LocationServiceProtocol!
-    var modelTodayResponse: TodayResponse?
-    private var cardinalPoints: String!
-    private var coordinate: CLLocationCoordinate2D!
+    private var modelTodayResponse: TodayResponse?
     
     required init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol) {
         self.view = view
@@ -72,6 +70,13 @@ class TodayPresenter: TodayViewPresenterProtocol {
                                   clouds: String(Int(modelTodayResponse.clouds.all)),
                                   pressure: String(Int(modelTodayResponse.main.pressure)),
                                   wind: String(modelTodayResponse.wind.speed),
-                                  poles: locationService.cardinalPoints ?? "--")
+                                  poles: locationService.cardinalPoints ?? "--",
+                                  textToShare: setupTextForShare())
+    }
+    
+    private func setupTextForShare() -> String {
+        guard let modelTodayResponse = modelTodayResponse else { return ""}
+        
+        return "Weather forecast from \(modelTodayResponse.name):\nFor \(CurrentDate.getFormatterDate())\nTemperature \(Int(modelTodayResponse.main.temp)) | \(modelTodayResponse.weather[0].main) \n - Humidity: \(Int(modelTodayResponse.main.humidity)) \n - Clouds: \(Int(modelTodayResponse.clouds.all)) \n - Pressure: \(Int(modelTodayResponse.main.pressure)) \n - Wind: \(modelTodayResponse.wind.speed) \n - Poles: \(locationService.cardinalPoints ?? "--")"
     }
 }
