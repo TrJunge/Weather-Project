@@ -7,14 +7,15 @@
 
 import UIKit
 import CoreLocation
+import Foundation
 
 protocol TodayViewProtocol: AnyObject {
-    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String, textToShare: String)
-    func failure(error: Error)
+    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, windDirection: String, textToShare: String)
+    func failure(error: Error!)
 }
 
 protocol TodayViewPresenterProtocol: AnyObject{
-    init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol)
+    init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!)
     func getNetworkResponse()
     func setComponents()
 }
@@ -22,21 +23,21 @@ protocol TodayViewPresenterProtocol: AnyObject{
 class TodayPresenter: TodayViewPresenterProtocol {
     weak var view: TodayViewProtocol?
     let networkServices: NetworkServiceProtocol!
-    let locationService: LocationServiceProtocol!
+    let coordinate: CLLocationCoordinate2D!
     private var modelTodayResponse: TodayResponse?
     
-    required init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol) {
+    required init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!) {
         self.view = view
         self.networkServices = networkServices
-        self.locationService = locationService
-        DispatchQueue.main.async {
+        self.coordinate = coordinate
+        if self.coordinate != nil {
             self.getNetworkResponse()
         }
     }
 
     func getNetworkResponse() {
-        let latitude = self.locationService.coordinate.latitude
-        let longitude = self.locationService.coordinate.longitude
+        let latitude = self.coordinate.latitude
+        let longitude = self.coordinate.longitude
         let units = "metric"
         let keyAPI = "603cbab18b03ffb19439cac48a49168e"
         let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&units=\(units)&appid=\(keyAPI)"
@@ -64,12 +65,18 @@ class TodayPresenter: TodayViewPresenterProtocol {
                                   clouds: String(Int(modelTodayResponse.clouds.all)),
                                   pressure: String(Int(modelTodayResponse.main.pressure)),
                                   wind: String(modelTodayResponse.wind.speed),
-                                  poles: locationService.cardinalPoints ?? "--",
+                                  windDirection: windDirection(modelTodayResponse.wind.deg),
                                   textToShare: setupTextForShare())
     }
     
     private func setupTextForShare() -> String {
         guard let modelTodayResponse = modelTodayResponse else { return ""}
-        return "Weather forecast from \(modelTodayResponse.name):\nFor \(CurrentDate.getFormatterDate(dateFormat: "dd.MM.YYYY | HH:mm:ss"))\nTemperature \(Int(modelTodayResponse.main.temp))ºC | \(modelTodayResponse.weather[0].main)\n - Humidity: \(Int(modelTodayResponse.main.humidity))%\n - Clouds: \(Int(modelTodayResponse.clouds.all))%\n - Pressure: \(Int(modelTodayResponse.main.pressure)) hPa\n - Wind: \(modelTodayResponse.wind.speed) km/h\n - Poles: \(locationService.cardinalPoints ?? "--")"
+        return "Weather forecast from \(modelTodayResponse.name):\nFor \(CurrentDate.getFormatterDate(dateFormat: "dd.MM.YYYY | HH:mm:ss"))\nTemperature \(Int(modelTodayResponse.main.temp))ºC | \(modelTodayResponse.weather[0].main)\n - Humidity: \(Int(modelTodayResponse.main.humidity))%\n - Clouds: \(Int(modelTodayResponse.clouds.all))%\n - Pressure: \(Int(modelTodayResponse.main.pressure)) hPa\n - Wind: \(modelTodayResponse.wind.speed) km/h\n - Poles: \(windDirection(modelTodayResponse.wind.deg))"
+    }
+    
+    private func windDirection(_ degrees: Float) -> String {
+        let directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+        let i: Int = Int((degrees + 11.25)/22.5)
+        return directions[i % 16]
     }
 }

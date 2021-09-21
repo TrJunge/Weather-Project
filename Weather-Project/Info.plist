@@ -22,14 +22,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app uses your location to check the weather in your area. In Use Usage.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app uses your location to check the weather in your area. Always.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>This app uses your location to check the weather in your area. Usage.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app uses your location to check the weather in your area. When In Use.</string>
+	<string>This app uses your location to check the weather in your area.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app uses your location to check the weather in your area.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

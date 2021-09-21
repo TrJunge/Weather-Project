@@ -30,6 +30,7 @@ struct MainToday: Codable {
 
 struct WindToday: Codable {
     var speed: Float
+    var deg: Float
 }
 
 struct CloudsToday: Codable {

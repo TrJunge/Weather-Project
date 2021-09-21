@@ -8,54 +8,47 @@
 import CoreLocation
 
 protocol LocationServiceProtocol {
-    var coordinate: CLLocationCoordinate2D! { get set }
-    var cardinalPoints: String! { get set }
+    var mainTabBarDelegate: MainTabBarDelegate! { get set }
 }
 
 class LocationService: NSObject, LocationServiceProtocol {
     fileprivate let locationManager = CLLocationManager()
-    var coordinate: CLLocationCoordinate2D!
-    var cardinalPoints: String!
-    
+    var mainTabBarDelegate: MainTabBarDelegate!
     override init() {
         super.init()
-        setLocationManager()
+        setupLocationManager()
     }
     
-    private func setLocationManager() {
+    private func setupLocationManager() {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingHeading()
-        self.locationManager.startUpdatingLocation()
     }
     
-    private func compassDirection(for heading: CLLocationDirection) -> String? {
-        guard heading > 0 else {
-            return nil
-        }
-        let directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
-        let index = Int((heading + 22.5) / 45.0) & 7
-        return directions[index]
-    }
 }
 
 // MARK: CLLocationManagerDelegate
 extension LocationService: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            coordinate = location.coordinate
-            locationManager.stopUpdatingLocation()
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+        case .authorizedAlways, .authorizedWhenInUse:
+            manager.startUpdatingLocation()
+        case .denied:
+            mainTabBarDelegate.failureLocation(failureType: .privacyAuthorization, error: nil)
+        default:
+            print("Other CLAuthorizationStatus ")
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        guard let direction = compassDirection(for: newHeading.trueHeading) else { return }
-        cardinalPoints = direction
-        locationManager.stopUpdatingHeading()
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            locationManager.stopUpdatingLocation()
+            mainTabBarDelegate.successLocation(coordinate: location.coordinate)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to get users location.")
+        mainTabBarDelegate.failureLocation(failureType: .geolocationConnection, error: error)
     }
 }

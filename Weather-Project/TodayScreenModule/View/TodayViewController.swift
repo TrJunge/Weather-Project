@@ -23,8 +23,8 @@ class TodayViewController: UIViewController {
     lazy var firstMiddleStackView: UIStackView = setFirstMiddleStackView()
     lazy var windLabel: UILabel = setWindLabel()
     lazy var windStackView: UIStackView = setWindStackView()
-    lazy var polesLabel: UILabel = setPolesLabel()
-    lazy var polesStackView: UIStackView = setPolesStackView()
+    lazy var windDirectionLabel: UILabel = setWindDirectionLabel()
+    lazy var windDirectionStackView: UIStackView = setWindDirectionStackView()
     lazy var secondMiddleStackView: UIStackView = setSecondMiddleStackView()
     lazy var mainMiddleStackView: UIStackView = setMainMiddleStackView()
     lazy var shareButton: UIButton = setShareButton()
@@ -55,11 +55,17 @@ class TodayViewController: UIViewController {
         
         self.present(activityViewController, animated: true, completion: nil)
     }
+    
+    private func failureNetworkResponse(_ error: Error!) {
+        let alertController = UIAlertController(title: "Error network response", message: "\(error.localizedDescription). Please check the interneet connection&", preferredStyle: .alert)
+        let alertActionOk = UIAlertAction(title: "Ок", style: .default, handler: nil)
+        alertController.addAction(alertActionOk)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension TodayViewController: TodayViewProtocol {
-    
-    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, poles: String, textToShare: String) {
+    func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, windDirection: String, textToShare: String) {
         self.imageWeatherView.image = UIImage(systemName: imageName)
         self.nameCountryLabel.text = "\(country.name), \(country.shortName)"
         self.temperatureLabel.text =  "\(temperature.degrees)°C | \("\(temperature.description)")"
@@ -67,20 +73,20 @@ extension TodayViewController: TodayViewProtocol {
         self.cloudsLabel.text = "\(clouds)%"
         self.pressureLabel.text = "\(pressure) hPa"
         self.windLabel.text = "\(wind) km/h"
-        self.polesLabel.text = poles
+        self.windDirectionLabel.text = windDirection
+        self.shareButton.isEnabled = true
         self.textToShare = textToShare
     }
     
-    func failure(error: Error) {
-        print(error)
+    func failure(error: Error!) {
         self.imageWeatherView.image = UIImage(systemName: "sun.max")
         self.nameCountryLabel.text = "-"
-        self.temperatureLabel.text =  "-°C | -"
+        self.temperatureLabel.text =  "--"
         self.humidityLabel.text = "-%"
         self.cloudsLabel.text = "-%"
         self.pressureLabel.text = "- hPa"
         self.windLabel.text = "- km/h"
-        self.polesLabel.text = "-"
-     
+        self.windDirectionLabel.text = "-"
+        self.failureNetworkResponse(error)
     }
 }

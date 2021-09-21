@@ -10,12 +10,12 @@ import CoreLocation
 
 protocol ForecastViewProtocol: AnyObject {
     func success(navigationBarTitle: String)
-    func failure(error: Error)
+    func failure(error: Error!)
 }
 
 protocol ForecastViewPresenterProtocol: AnyObject {
     var modelForecastOnSections: [String:[Forecast]] { get set }
-    init(view: ForecastViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol)
+    init(view: ForecastViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!)
     func setSection(_ section: Int) -> String
     func getNetworkResponse()
     func setComponents()
@@ -24,24 +24,23 @@ protocol ForecastViewPresenterProtocol: AnyObject {
 class ForecastPresenter: ForecastViewPresenterProtocol {
     weak var view: ForecastViewProtocol?
     let networkServices: NetworkServiceProtocol!
-    let locationService: LocationServiceProtocol!
     var modelForecastOnSections = [String:[Forecast]]()
     private var coordinate: CLLocationCoordinate2D!
     private var cityName: String!
     private var calendar = Calendar(identifier: .gregorian)
     
-    required init(view: ForecastViewProtocol, networkServices: NetworkServiceProtocol, locationService: LocationServiceProtocol) {
+    required init(view: ForecastViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!) {
         self.view = view
         self.networkServices = networkServices
-        self.locationService = locationService
-        DispatchQueue.main.async {
+        self.coordinate = coordinate
+        if self.coordinate != nil {
             self.getNetworkResponse()
         }
     }
     
     func getNetworkResponse() {
-        let latitude = self.locationService.coordinate.latitude
-        let longitude = self.locationService.coordinate.longitude
+        let latitude = self.coordinate.latitude
+        let longitude = self.coordinate.longitude
         let units = "metric"
         let keyAPI = "603cbab18b03ffb19439cac48a49168e"
         let urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&units=\(units)&appid=\(keyAPI)"

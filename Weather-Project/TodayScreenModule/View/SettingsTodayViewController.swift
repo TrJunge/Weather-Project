@@ -36,7 +36,7 @@ extension TodayViewController {
     }
     
     func setTemperatureLabel() -> UILabel {
-        let label = UILabel(frame: CGRect(origin: CGPoint(), size: CGSize(width: view.frame.width, height: 50)))
+        let label = UILabel()
         label.textAlignment = .center
         label.text = "--"
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 26)
@@ -48,7 +48,7 @@ extension TodayViewController {
     func setMainTopStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [imageWeatherView, nameCountryLabel, temperatureLabel])
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 20
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -149,7 +149,7 @@ extension TodayViewController {
         return stackView
     }
     
-    func setPolesLabel() -> UILabel {
+    func setWindDirectionLabel() -> UILabel {
         let label = UILabel()
         label.text = "--"
         label.textAlignment = .center
@@ -157,14 +157,14 @@ extension TodayViewController {
         return label
     }
     
-    func setPolesStackView() -> UIStackView {
+    func setWindDirectionStackView() -> UIStackView {
         let imageView = UIImageView()
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(20))
         imageView.image = UIImage(systemName: "safari")
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .systemYellow
 
-        let stackView = UIStackView(arrangedSubviews: [imageView, polesLabel])
+        let stackView = UIStackView(arrangedSubviews: [imageView, windDirectionLabel])
         stackView.axis = .vertical
         stackView.spacing = 3
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -172,7 +172,7 @@ extension TodayViewController {
     }
     
     func setSecondMiddleStackView() -> UIStackView {
-        let stackView = UIStackView(arrangedSubviews: [windStackView, polesStackView])
+        let stackView = UIStackView(arrangedSubviews: [windStackView, windDirectionStackView])
         stackView.axis = .horizontal
         stackView.spacing = 0
         stackView.alignment = .center
@@ -194,6 +194,7 @@ extension TodayViewController {
         button.setTitle("Share", for: .normal)
         button.setTitleColor(.systemRed, for: .normal)
         button.addTarget(self, action: Selector(("share")), for: .touchUpInside)
+        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }
@@ -209,18 +210,18 @@ extension TodayViewController {
     }
     
     func setupConstraints() {
+        let indentForMainBlocks = view.frame.height/15
+  
         navigationBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
         navigationBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         navigationBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
-        mainTopStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 70).isActive = true
+        mainTopStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: indentForMainBlocks).isActive = true
         mainTopStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         mainTopStackView.heightAnchor.constraint(equalToConstant: 220).isActive = true
         
-        mainMiddleStackView.topAnchor.constraint(equalTo: mainTopStackView.bottomAnchor, constant: 70).isActive = true
-        mainMiddleStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        mainMiddleStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        mainMiddleStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        mainMiddleStackView.topAnchor.constraint(equalTo: mainTopStackView.bottomAnchor, constant: indentForMainBlocks).isActive = true
+        mainMiddleStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         mainMiddleStackView.widthAnchor.constraint(equalToConstant: view.frame.width - 40).isActive = true
 
         humidityStackView.widthAnchor.constraint(equalToConstant: (view.frame.width - 40) / 3).isActive = true
@@ -230,9 +231,9 @@ extension TodayViewController {
         secondMiddleStackView.widthAnchor.constraint(equalToConstant: view.frame.width - 150).isActive = true
         
         windStackView.widthAnchor.constraint(equalToConstant: (view.frame.width - 150) / 2).isActive = true
-        polesStackView.widthAnchor.constraint(equalToConstant: (view.frame.width - 150) / 2).isActive = true
+        windDirectionStackView.widthAnchor.constraint(equalToConstant: (view.frame.width - 150) / 2).isActive = true
         
-        shareButton.topAnchor.constraint(equalTo: mainMiddleStackView.bottomAnchor, constant: 50).isActive = true
+        shareButton.topAnchor.constraint(equalTo: mainMiddleStackView.bottomAnchor, constant: indentForMainBlocks).isActive = true
         shareButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }

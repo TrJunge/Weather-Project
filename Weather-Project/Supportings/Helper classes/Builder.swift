@@ -6,27 +6,26 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol Builder {
-    static func createTodayViewController() -> UIViewController
-    static func createForecastViewController() -> UIViewController
+    static func createTodayViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController
+    static func createForecastViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController
 }
 
 class ModuleBuilder: Builder {
-    static func createTodayViewController() -> UIViewController {
+    static func createTodayViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController {
         let view = TodayViewController()
         let networkServices = NetworkService()
-        let locationService = LocationService()
-        let presenter = TodayPresenter(view: view, networkServices: networkServices, locationService: locationService)
+        let presenter = TodayPresenter(view: view, networkServices: networkServices, coordinate: coordinate)
         view.presenter = presenter
         return view
     }
     
-    static func createForecastViewController() -> UIViewController {
+    static func createForecastViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController {
         let view = ForecastViewController()
         let networkServices = NetworkService()
-        let locationService = LocationService()
-        let presenter = ForecastPresenter(view: view, networkServices: networkServices, locationService: locationService)
+        let presenter = ForecastPresenter(view: view, networkServices: networkServices, coordinate: coordinate)
         view.presenter = presenter
         return view
     }
