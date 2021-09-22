@@ -14,20 +14,28 @@ protocol MainTabBarDelegate: AnyObject {
 }
 
 class MainTabBarController: UITabBarController {
-    var locationService: LocationServiceProtocol!
-    var coordinate: CLLocationCoordinate2D!
+    private var locationService: LocationServiceProtocol!
+    private var coordinate: CLLocationCoordinate2D!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
-        self.locationService = LocationService()
-        self.locationService.mainTabBarDelegate = self
+        setupView()
+        setupLocationService()
+    }
+    
+    private func setupView() {
+        view.backgroundColor = UIColor(named: "background-color")
+    }
+    
+    private func setupLocationService() {
+        locationService = LocationService()
+        locationService.mainTabBarDelegate = self
     }
     
     private func setTabBarController() {
         let todayViewController = ModuleBuilder.createTodayViewController(coordinate: coordinate)
         let forecastViewController = ModuleBuilder.createForecastViewController(coordinate: coordinate)
-        self.setViewControllers([todayViewController, forecastViewController], animated: true)
+        setViewControllers([todayViewController, forecastViewController], animated: true)
         setTabBarItems()
     }
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol ForecastViewProtocol: AnyObject {
     func success(navigationBarTitle: String)
@@ -14,17 +15,20 @@ protocol ForecastViewProtocol: AnyObject {
 }
 
 protocol ForecastViewPresenterProtocol: AnyObject {
-    var modelForecastOnSections: [String:[Forecast]] { get set }
+    var sectionCount: Int! { get set }
+    
     init(view: ForecastViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!)
-    func setSection(_ section: Int) -> String
-    func getNetworkResponse()
-    func setComponents()
+    
+    func numberOfRowsIn(section: Int) -> Int
+    func setSectionTitle(_ section: Int) -> String
+    func setCell(_ cell: TableViewCell, _ indexPath: IndexPath) -> UITableViewCell
 }
 
 class ForecastPresenter: ForecastViewPresenterProtocol {
-    weak var view: ForecastViewProtocol?
-    let networkServices: NetworkServiceProtocol!
-    var modelForecastOnSections = [String:[Forecast]]()
+    private weak var view: ForecastViewProtocol?
+    private let networkServices: NetworkServiceProtocol!
+    private var modelForecastOnSections = [String:[Forecast]]()
+    var sectionCount: Int!
     private var coordinate: CLLocationCoordinate2D!
     private var cityName: String!
     private var calendar = Calendar(identifier: .gregorian)
@@ -34,13 +38,13 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
         self.networkServices = networkServices
         self.coordinate = coordinate
         if self.coordinate != nil {
-            self.getNetworkResponse()
+            getNetworkResponse()
         }
     }
     
-    func getNetworkResponse() {
-        let latitude = self.coordinate.latitude
-        let longitude = self.coordinate.longitude
+    private func getNetworkResponse() {
+        let latitude = coordinate.latitude
+        let longitude = coordinate.longitude
         let units = "metric"
         let keyAPI = "603cbab18b03ffb19439cac48a49168e"
         let urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&units=\(units)&appid=\(keyAPI)"
@@ -88,9 +92,48 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
             }
             
         }
+        sectionCount = modelForecastOnSections.count
     }
-
-    func setSection(_ section: Int) -> String {
+    
+    func numberOfRowsIn(section: Int) -> Int {
+        guard let countRow = modelForecastOnSections[String(section)]?.count else { return 0 }
+        return countRow
+    }
+    
+    func setCell(_ cell: TableViewCell, _ indexPath: IndexPath) -> UITableViewCell {
+        guard let weathersInSections = modelForecastOnSections["\(indexPath.section)"] else {
+            return UITableViewCell()
+        }
+        let weatherItem = weathersInSections[indexPath.row]
+        return configurateCell(cell, weatherItem)
+    }
+    
+    private func configurateCell(_ cell: TableViewCell, _ weatherItem: Forecast) -> UITableViewCell {
+        cell.weatherImageView.image = UIImage(systemName: WeatherIcons.getImage(weatherItem.weather[0].icon))
+        cell.timeLabel.text = setTimeCell(weatherItem.dt_txt)
+        cell.descriptionLabel.text = setDescriptionCell(weatherItem.weather[0].description)
+        cell.temperatureLabel.text = "\(Int(weatherItem.main.temp))Cº"
+        return cell
+    }
+    
+    private func setTimeCell(_ date: String) -> String {
+        let index = date.index(after: date.firstIndex(of: " ") ?? date.endIndex)
+        var weatherForecastTime = String(date[index...])
+        weatherForecastTime.removeLast(3)
+        return weatherForecastTime
+    }
+    
+    private func setDescriptionCell(_ description: String) -> String {
+        let splitedDescription = description.split(separator: " ")
+        var newDescription = ""
+        splitedDescription.forEach { desc in
+            let decsFirstUpperChar = desc.first!.uppercased()
+            newDescription += decsFirstUpperChar + desc[desc.index(desc.startIndex, offsetBy: 1)...] + " "
+        }
+        return newDescription
+    }
+    
+    func setSectionTitle(_ section: Int) -> String {
         guard let weatherFromSection = modelForecastOnSections["\(section)"]?[0] else {
             return "Error"
         }
@@ -129,7 +172,7 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
         }
     }
     
-    func setComponents() {
+    private func setComponents() {
         view?.success(navigationBarTitle: cityName)
     }
 }

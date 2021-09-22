@@ -6,8 +6,6 @@
 //
 
 class WeatherIcons {
-    // провести тесты!
-    // уточнить про static
     static func getImage(_ iconIndex: String) -> String {
         switch iconIndex {
         case "01n":

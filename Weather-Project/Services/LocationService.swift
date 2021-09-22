@@ -13,15 +13,15 @@ protocol LocationServiceProtocol {
 
 class LocationService: NSObject, LocationServiceProtocol {
     fileprivate let locationManager = CLLocationManager()
-    var mainTabBarDelegate: MainTabBarDelegate!
+    weak var mainTabBarDelegate: MainTabBarDelegate!
     override init() {
         super.init()
         setupLocationManager()
     }
     
     private func setupLocationManager() {
-        self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
 }
