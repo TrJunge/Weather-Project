@@ -16,14 +16,12 @@ protocol TodayViewProtocol: AnyObject {
 
 protocol TodayViewPresenterProtocol: AnyObject{
     init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!)
-    func getNetworkResponse()
-    func setComponents()
 }
 
 class TodayPresenter: TodayViewPresenterProtocol {
-    weak var view: TodayViewProtocol?
-    let networkServices: NetworkServiceProtocol!
-    let coordinate: CLLocationCoordinate2D!
+    private weak var view: TodayViewProtocol?
+    private let networkServices: NetworkServiceProtocol!
+    private let coordinate: CLLocationCoordinate2D!
     private var modelTodayResponse: TodayResponse?
     
     required init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!) {
@@ -31,18 +29,18 @@ class TodayPresenter: TodayViewPresenterProtocol {
         self.networkServices = networkServices
         self.coordinate = coordinate
         if self.coordinate != nil {
-            self.getNetworkResponse()
+            getNetworkResponse()
         }
     }
 
-    func getNetworkResponse() {
-        let latitude = self.coordinate.latitude
-        let longitude = self.coordinate.longitude
+    private func getNetworkResponse() {
+        let latitude = coordinate.latitude
+        let longitude = coordinate.longitude
         let units = "metric"
         let keyAPI = "603cbab18b03ffb19439cac48a49168e"
         let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&units=\(units)&appid=\(keyAPI)"
         
-        self.networkServices.request(urlString: urlString, responseOn: TodayResponse.self) { [weak self] result in
+        networkServices.request(urlString: urlString, responseOn: TodayResponse.self) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -56,11 +54,12 @@ class TodayPresenter: TodayViewPresenterProtocol {
         }
     }
     
-    func setComponents() {
+    private func setComponents() {
         guard let modelTodayResponse = modelTodayResponse else { return }
         view?.success(imageName: WeatherIcons.getImage(modelTodayResponse.weather[0].icon),
                                   country: (modelTodayResponse.name, modelTodayResponse.sys.country),
-                                  temperature: (String(Int(modelTodayResponse.main.temp)), modelTodayResponse.weather[0].main),
+                                  temperature: (String(Int(modelTodayResponse.main.temp)),
+                                                modelTodayResponse.weather[0].main),
                                   humidity: String(Int(modelTodayResponse.main.humidity)),
                                   clouds: String(Int(modelTodayResponse.clouds.all)),
                                   pressure: String(Int(modelTodayResponse.main.pressure)),

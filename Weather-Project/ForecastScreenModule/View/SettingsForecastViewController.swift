@@ -12,7 +12,7 @@ extension ForecastViewController {
         let navBar = UINavigationBar()
         navBar.prefersLargeTitles = false
         navBar.isTranslucent = false
-        navBar.barTintColor = .systemBackground
+        navBar.barTintColor = UIColor(named: "background-color")
         navBar.translatesAutoresizingMaskIntoConstraints = false
         let navItem = UINavigationItem()
         navBar.setItems([navItem], animated: true);
@@ -22,6 +22,7 @@ extension ForecastViewController {
     func setTableView() -> UITableView {
 //        let tableView = UITableView(frame: view.frame, style: .insetGrouped
         let tableView = UITableView(frame: view.frame, style: .plain)
+        tableView.backgroundColor = UIColor(named: "background-color")
         tableView.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: headerIdentifier)
         tableView.rowHeight = 100
@@ -33,8 +34,8 @@ extension ForecastViewController {
 // MARK: setupSubviews and setupConstraint
 extension ForecastViewController {
     func setupSubview() {
-        self.view.addSubview(navigationBar)
-        self.view.addSubview(tableView)
+        view.addSubview(navigationBar)
+        view.addSubview(tableView)
     }
     
     func setupConstraint() {

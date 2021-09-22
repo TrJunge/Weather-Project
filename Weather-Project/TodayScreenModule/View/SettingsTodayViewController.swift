@@ -12,7 +12,7 @@ extension TodayViewController {
         let navBar = UINavigationBar()
         navBar.prefersLargeTitles = false
         navBar.isTranslucent = false
-        navBar.barTintColor = .systemBackground
+        navBar.barTintColor = UIColor(named: "background-color")
         navBar.translatesAutoresizingMaskIntoConstraints = false
         let navItem = UINavigationItem(title: "Today")
         navBar.setItems([navItem], animated: true);
@@ -23,7 +23,7 @@ extension TodayViewController {
         let imageView = UIImageView(image: UIImage(systemName: "sun.min"))
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(120))
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemYellow
+        imageView.tintColor = UIColor(named: "image-color")
         return imageView
     }
     
@@ -40,7 +40,7 @@ extension TodayViewController {
         label.textAlignment = .center
         label.text = "--"
         label.font = UIFont(descriptor: UIFontDescriptor(), size: 26)
-        label.textColor = .link
+        label.textColor = UIColor(named: "temperature-label-color")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -67,7 +67,7 @@ extension TodayViewController {
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(20))
         imageView.image = UIImage(systemName: "cloud.heavyrain")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemYellow
+        imageView.tintColor = UIColor(named: "image-color")
 
         let stackView = UIStackView(arrangedSubviews: [imageView, humidityLabel])
         stackView.axis = .vertical
@@ -88,7 +88,7 @@ extension TodayViewController {
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(20))
         imageView.image = UIImage(systemName: "smoke")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemYellow
+        imageView.tintColor = UIColor(named: "image-color")
 
         let stackView = UIStackView(arrangedSubviews: [imageView, cloudsLabel])
         stackView.axis = .vertical
@@ -110,7 +110,7 @@ extension TodayViewController {
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(20))
         imageView.image = UIImage(systemName: "thermometer")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemYellow
+        imageView.tintColor =  UIColor(named: "image-color")
 
         let stackView = UIStackView(arrangedSubviews: [imageView, pressureLabel])
         stackView.axis = .vertical
@@ -140,7 +140,7 @@ extension TodayViewController {
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(20))
         imageView.image = UIImage(systemName: "wind")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemYellow
+        imageView.tintColor = UIColor(named: "image-color")
 
         let stackView = UIStackView(arrangedSubviews: [imageView, windLabel])
         stackView.axis = .vertical
@@ -162,7 +162,7 @@ extension TodayViewController {
         imageView.preferredSymbolConfiguration = .init(pointSize: CGFloat(20))
         imageView.image = UIImage(systemName: "safari")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemYellow
+        imageView.tintColor = UIColor(named: "image-color")
 
         let stackView = UIStackView(arrangedSubviews: [imageView, windDirectionLabel])
         stackView.axis = .vertical
@@ -203,10 +203,10 @@ extension TodayViewController {
 // MARK: setupSubviews and setupConstraint
 extension TodayViewController {
     func setupSubviews() {
-        self.view.addSubview(navigationBar)
-        self.view.addSubview(mainTopStackView)
-        self.view.addSubview(mainMiddleStackView)
-        self.view.addSubview(shareButton)
+        view.addSubview(navigationBar)
+        view.addSubview(mainTopStackView)
+        view.addSubview(mainMiddleStackView)
+        view.addSubview(shareButton)
     }
     
     func setupConstraints() {

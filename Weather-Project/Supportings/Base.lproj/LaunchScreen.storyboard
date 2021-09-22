@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <device id="retina6_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,29 +17,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QgU-3N-VOJ">
-                                <rect key="frame" x="70" y="288.66666666666663" width="250" height="266.66666666666663"/>
+                                <rect key="frame" x="0.0" y="273.33333333333326" width="390" height="257.66666666666674"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="7Fx-0f-5MP">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="220"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="250" id="87a-em-vJZ"/>
-                                            <constraint firstAttribute="height" constant="220" id="xq2-sN-quz"/>
-                                        </constraints>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="umbrella" translatesAutoresizingMaskIntoConstraints="NO" id="7Fx-0f-5MP">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="211"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weather" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-yR-qwk">
-                                        <rect key="frame" x="54.666666666666671" y="220" width="141" height="46.666666666666686"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="39"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weather" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-yR-qwk">
+                                        <rect key="frame" x="115.00000000000001" y="211" width="160.33333333333337" height="46.666666666666686"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="39"/>
+                                        <color key="textColor" name="launchscreen-title-color"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="background-color"/>
                         <constraints>
                             <constraint firstItem="QgU-3N-VOJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="HLG-rW-mct"/>
-                            <constraint firstItem="QgU-3N-VOJ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Kco-vY-P8q"/>
+                            <constraint firstItem="QgU-3N-VOJ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-20" id="Kco-vY-P8q"/>
+                            <constraint firstItem="7Fx-0f-5MP" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.25" id="SlY-ei-tMD"/>
+                            <constraint firstItem="7Fx-0f-5MP" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="YfF-9L-xt6"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -49,9 +47,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon" width="1024" height="1024"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="umbrella" width="512" height="512"/>
+        <namedColor name="background-color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="launchscreen-title-color">
+            <color red="0.105035536" green="0.10858134179999999" blue="0.14220917220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

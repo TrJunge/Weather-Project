@@ -35,13 +35,13 @@ class TodayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
+        setupView()
     }
     
     private func setupView() {
-        self.view.backgroundColor = .systemBackground
-        self.setupSubviews()
-        self.setupConstraints()
+        view.backgroundColor = UIColor(named: "background-color")
+        setupSubviews()
+        setupConstraints()
     }
     
     @objc func share() {
@@ -66,27 +66,28 @@ class TodayViewController: UIViewController {
 
 extension TodayViewController: TodayViewProtocol {
     func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, windDirection: String, textToShare: String) {
-        self.imageWeatherView.image = UIImage(systemName: imageName)
-        self.nameCountryLabel.text = "\(country.name), \(country.shortName)"
-        self.temperatureLabel.text =  "\(temperature.degrees)°C | \("\(temperature.description)")"
-        self.humidityLabel.text = "\(humidity)%"
-        self.cloudsLabel.text = "\(clouds)%"
-        self.pressureLabel.text = "\(pressure) hPa"
-        self.windLabel.text = "\(wind) km/h"
-        self.windDirectionLabel.text = windDirection
-        self.shareButton.isEnabled = true
+        
+        imageWeatherView.image = UIImage(systemName: imageName)
+        nameCountryLabel.text = "\(country.name), \(country.shortName)"
+        temperatureLabel.text =  "\(temperature.degrees)°C | \("\(temperature.description)")"
+        humidityLabel.text = "\(humidity)%"
+        cloudsLabel.text = "\(clouds)%"
+        pressureLabel.text = "\(pressure) hPa"
+        windLabel.text = "\(wind) km/h"
+        windDirectionLabel.text = windDirection
+        shareButton.isEnabled = true
         self.textToShare = textToShare
     }
     
     func failure(error: Error!) {
-        self.imageWeatherView.image = UIImage(systemName: "sun.max")
-        self.nameCountryLabel.text = "-"
-        self.temperatureLabel.text =  "--"
-        self.humidityLabel.text = "-%"
-        self.cloudsLabel.text = "-%"
-        self.pressureLabel.text = "- hPa"
-        self.windLabel.text = "- km/h"
-        self.windDirectionLabel.text = "-"
-        self.failureNetworkResponse(error)
+        imageWeatherView.image = UIImage(systemName: "sun.max")
+        nameCountryLabel.text = "-"
+        temperatureLabel.text =  "--"
+        humidityLabel.text = "-%"
+        cloudsLabel.text = "-%"
+        pressureLabel.text = "- hPa"
+        windLabel.text = "- km/h"
+        windDirectionLabel.text = "-"
+        failureNetworkResponse(error)
     }
 }

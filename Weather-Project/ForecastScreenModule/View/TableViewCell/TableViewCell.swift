@@ -17,17 +17,22 @@ class TableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setupAddSubview()
-        self.setupComponents()
-        self.setupConstraints()
+        setupView()
+    }
+    
+    private func setupView() {
+        backgroundColor = UIColor(named: "background-color")
+        setupAddSubview()
+        setupComponents()
+        setupConstraints()
     }
     
     private func setupComponents() {
-        self.setWeatherImageView()
-        self.setTimeLabel()
-        self.setDescriptionLabel()
-        self.setMainStackView()
-        self.setTemperatureLabel()
+        setWeatherImageView()
+        setTimeLabel()
+        setDescriptionLabel()
+        setMainStackView()
+        setTemperatureLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -38,37 +43,37 @@ class TableViewCell: UITableViewCell {
 
 // MARK: Set Components, Constraints and Subviews
 extension TableViewCell {
-    func setWeatherImageView() {
+    private func setWeatherImageView() {
         weatherImageView.preferredSymbolConfiguration = .init(pointSize: 50.0)
         weatherImageView.tintColor = .systemYellow
         weatherImageView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setTimeLabel() {
+    private func setTimeLabel() {
         timeLabel.text = "--:--"
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setDescriptionLabel() {
+    private func setDescriptionLabel() {
         descriptionLabel.text = "-"
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setMainStackView() {
+    private func setMainStackView() {
         mainStackView.addArrangedSubview(timeLabel)
         mainStackView.addArrangedSubview(descriptionLabel)
         mainStackView.axis = .vertical
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setTemperatureLabel() {
+    private func setTemperatureLabel() {
         temperatureLabel.text = "--"
         temperatureLabel.font = UIFont(descriptor: UIFontDescriptor(), size: 30)
         temperatureLabel.textColor = .link
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         weatherImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
         weatherImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
@@ -79,7 +84,7 @@ extension TableViewCell {
         temperatureLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
     
-    func setupAddSubview() {
+    private func setupAddSubview() {
         self.addSubview(weatherImageView)
         self.addSubview(mainStackView)
         self.addSubview(temperatureLabel)
