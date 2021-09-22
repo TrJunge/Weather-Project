@@ -12,7 +12,7 @@ class ForecastViewController: UIViewController {
     lazy var navigationBar: UINavigationBar = setNavigationBar()
     lazy var tableView: UITableView = setTableView()
     
-    weak var presenter: ForecastViewPresenterProtocol!
+    var presenter: ForecastViewPresenterProtocol!
     
     let cellIdentifier = "Cell"
     let headerIdentifier = "Header"

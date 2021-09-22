@@ -29,6 +29,8 @@ class TodayViewController: UIViewController {
     lazy var mainMiddleStackView: UIStackView = setMainMiddleStackView()
     lazy var shareButton: UIButton = setShareButton()
     
+    var presenter: TodayViewPresenterProtocol!
+    
     private var textToShare = ""
     
     override func viewDidLoad() {

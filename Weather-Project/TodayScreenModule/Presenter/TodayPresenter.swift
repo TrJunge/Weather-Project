@@ -19,7 +19,7 @@ protocol TodayViewPresenterProtocol: AnyObject{
 }
 
 class TodayPresenter: TodayViewPresenterProtocol {
-    weak var view: TodayViewProtocol?
+    private weak var view: TodayViewProtocol?
     private let networkServices: NetworkServiceProtocol!
     private let coordinate: CLLocationCoordinate2D!
     private var modelTodayResponse: TodayResponse?
@@ -29,13 +29,13 @@ class TodayPresenter: TodayViewPresenterProtocol {
         self.networkServices = networkServices
         self.coordinate = coordinate
         if self.coordinate != nil {
-            self.getNetworkResponse()
+            getNetworkResponse()
         }
     }
 
     private func getNetworkResponse() {
-        let latitude = self.coordinate.latitude
-        let longitude = self.coordinate.longitude
+        let latitude = coordinate.latitude
+        let longitude = coordinate.longitude
         let units = "metric"
         let keyAPI = "603cbab18b03ffb19439cac48a49168e"
         let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&units=\(units)&appid=\(keyAPI)"

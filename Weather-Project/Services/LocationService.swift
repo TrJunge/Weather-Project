@@ -23,7 +23,6 @@ class LocationService: NSObject, LocationServiceProtocol {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
-    
 }
 
 // MARK: CLLocationManagerDelegate
