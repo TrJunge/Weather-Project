@@ -8,12 +8,12 @@
 import CoreLocation
 
 protocol LocationServiceProtocol {
-    var mainTabBarDelegate: MainTabBarDelegate! { get set }
+    var mainTabBarDelegate: MainTabBarPresenterProtocol! { get set }
 }
 
 class LocationService: NSObject, LocationServiceProtocol {
     fileprivate let locationManager = CLLocationManager()
-    weak var mainTabBarDelegate: MainTabBarDelegate!
+    weak var mainTabBarDelegate: MainTabBarPresenterProtocol!
     override init() {
         super.init()
         setupLocationManager()

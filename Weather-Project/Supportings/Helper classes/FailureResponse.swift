@@ -11,6 +11,9 @@ enum FailureResponse {
         case geolocationConnection
     }
     enum Internet {
-        
+        case connection
     }
+    
+    case location(_ Location: Location)
+    case internet(_ Internet : Internet )
 }

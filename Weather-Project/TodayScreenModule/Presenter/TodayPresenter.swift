@@ -11,71 +11,36 @@ import Foundation
 
 protocol TodayViewProtocol: AnyObject {
     func success(imageName: String, country: (name: String, shortName: String), temperature: (degrees: String, description: String), humidity: String, clouds: String, pressure: String, wind: String, windDirection: String, textToShare: String)
-    func failure(error: Error!)
+    func failure()
 }
 
 protocol TodayViewPresenterProtocol: AnyObject{
-    init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!)
+    init(view: TodayViewProtocol, model: Today?)
 }
 
 class TodayPresenter: TodayViewPresenterProtocol {
     private weak var view: TodayViewProtocol?
-    private let networkServices: NetworkServiceProtocol!
-    private let coordinate: CLLocationCoordinate2D!
-    private var modelTodayResponse: TodayResponse?
+    private var model: Today!
     
-    required init(view: TodayViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!) {
+    required init(view: TodayViewProtocol, model: Today?) {
         self.view = view
-        self.networkServices = networkServices
-        self.coordinate = coordinate
-        if self.coordinate != nil {
-            getNetworkResponse()
-        }
+        self.model = model
+        setComponents()
     }
 
-    private func getNetworkResponse() {
-        let latitude = coordinate.latitude
-        let longitude = coordinate.longitude
-        let units = "metric"
-        let keyAPI = "603cbab18b03ffb19439cac48a49168e"
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&units=\(units)&appid=\(keyAPI)"
-        
-        networkServices.request(urlString: urlString, responseOn: TodayResponse.self) { [weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let response):
-                    self.modelTodayResponse = response
-                    self.setComponents()
-                case .failure(let error):
-                    self.view?.failure(error: error)
-                }
-            }
-        }
-    }
-    
     private func setComponents() {
-        guard let modelTodayResponse = modelTodayResponse else { return }
-        view?.success(imageName: WeatherIcons.getImage(modelTodayResponse.weather[0].icon),
-                                  country: (modelTodayResponse.name, modelTodayResponse.sys.country),
-                                  temperature: (String(Int(modelTodayResponse.main.temp)),
-                                                modelTodayResponse.weather[0].main),
-                                  humidity: String(Int(modelTodayResponse.main.humidity)),
-                                  clouds: String(Int(modelTodayResponse.clouds.all)),
-                                  pressure: String(Int(modelTodayResponse.main.pressure)),
-                                  wind: String(modelTodayResponse.wind.speed),
-                                  windDirection: windDirection(modelTodayResponse.wind.deg),
-                                  textToShare: setupTextForShare())
-    }
-    
-    private func setupTextForShare() -> String {
-        guard let modelTodayResponse = modelTodayResponse else { return ""}
-        return "Weather forecast from \(modelTodayResponse.name):\nFor \(CurrentDate.getFormatterDate(dateFormat: "dd.MM.YYYY | HH:mm:ss"))\nTemperature \(Int(modelTodayResponse.main.temp))ºC | \(modelTodayResponse.weather[0].main)\n - Humidity: \(Int(modelTodayResponse.main.humidity))%\n - Clouds: \(Int(modelTodayResponse.clouds.all))%\n - Pressure: \(Int(modelTodayResponse.main.pressure)) hPa\n - Wind: \(modelTodayResponse.wind.speed) km/h\n - Poles: \(windDirection(modelTodayResponse.wind.deg))"
-    }
-    
-    private func windDirection(_ degrees: Float) -> String {
-        let directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
-        let i: Int = Int((degrees + 11.25)/22.5)
-        return directions[i % 16]
+        guard model != nil else {
+            view?.failure()
+            return
+        }
+        view?.success(imageName: model.weather.icon,
+                      country: (model.name, model.sys.country),
+                    temperature: (model.main.temp, model.weather.main),
+                                  humidity: model.main.humidity,
+                                  clouds: model.clouds.all,
+                                  pressure: model.main.pressure,
+                                  wind: model.wind.speed,
+                                  windDirection: model.wind.direction,
+                                  textToShare: model.shareButton.text)
     }
 }
