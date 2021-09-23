@@ -57,7 +57,7 @@ class TodayViewController: UIViewController {
     }
     
     private func failureNetworkResponse(_ error: Error!) {
-        let alertController = UIAlertController(title: "Error network response", message: "\(error.localizedDescription). Please check the interneet connection&", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Error network response", message: "\(error.localizedDescription). Please check the interneet connection.", preferredStyle: .alert)
         let alertActionOk = UIAlertAction(title: "Ок", style: .default, handler: nil)
         alertController.addAction(alertActionOk)
         self.present(alertController, animated: true, completion: nil)
