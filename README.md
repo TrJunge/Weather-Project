@@ -3,16 +3,16 @@
 https://user-images.githubusercontent.com/58320644/134467845-dcc14c85-99b1-4efb-bfac-57826ee7da03.mp4
 
 ## Weather-Project interface 
-![IMG_0086](https://user-images.githubusercontent.com/58320644/134467990-f111770f-695f-4ad5-916f-2970d14a523d.PNG)
-<img src="https://user-images.githubusercontent.com/58320644/134467990-f111770f-695f-4ad5-916f-2970d14a523d.PNG" width="100">
-
-![IMG_0097](https://user-images.githubusercontent.com/58320644/134468089-0e14ae93-b5f7-40d1-b100-4c367876dfab.PNG)
-
-![IMG_0087](https://user-images.githubusercontent.com/58320644/134468035-435f1547-eccb-41ba-b6db-79fb18879455.PNG)
-
-![IMG_0088](https://user-images.githubusercontent.com/58320644/134468053-d2d72a8f-012f-41ae-8d64-3a6b45a2cc63.png)
-
-![IMG_0089](https://user-images.githubusercontent.com/58320644/134468064-d326728b-16ad-43c3-8135-d83e76f51eac.PNG)
+<!-- ![IMG_0086](https://user-images.githubusercontent.com/58320644/134467990-f111770f-695f-4ad5-916f-2970d14a523d.PNG) -->
+<img src="https://user-images.githubusercontent.com/58320644/134467990-f111770f-695f-4ad5-916f-2970d14a523d.PNG" width="200">
+<!-- ![IMG_0097](https://user-images.githubusercontent.com/58320644/134468089-0e14ae93-b5f7-40d1-b100-4c367876dfab.PNG) -->
+<img src="https://user-images.githubusercontent.com/58320644/134468089-0e14ae93-b5f7-40d1-b100-4c367876dfab.PNG" width="200">
+<!-- ![IMG_0087](https://user-images.githubusercontent.com/58320644/134468035-435f1547-eccb-41ba-b6db-79fb18879455.PNG) -->
+<img src="https://user-images.githubusercontent.com/58320644/134468035-435f1547-eccb-41ba-b6db-79fb18879455.PNG" width="200">
+<!-- ![IMG_0088](https://user-images.githubusercontent.com/58320644/134468053-d2d72a8f-012f-41ae-8d64-3a6b45a2cc63.PNG) -->
+<img src="https://user-images.githubusercontent.com/58320644/58320644/134468053-d2d72a8f-012f-41ae-8d64-3a6b45a2cc63.PNG" width="200">
+<!-- ![IMG_0089](https://user-images.githubusercontent.com/58320644/134468064-d326728b-16ad-43c3-8135-d83e76f51eac.PNG) -->
+<img src="https://user-images.githubusercontent.com/58320644/134468064-d326728b-16ad-43c3-8135-d83e76f51eac.PNG" width="200">
 
 ## Accounting for Errors
 ### Network error
