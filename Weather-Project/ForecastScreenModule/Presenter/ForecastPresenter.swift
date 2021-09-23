@@ -15,7 +15,7 @@ protocol ForecastViewProtocol: AnyObject {
 }
 
 protocol ForecastViewPresenterProtocol: AnyObject {
-    var sectionCount: Int! { get set }
+    var sectionCount: Int { get set }
     
     init(view: ForecastViewProtocol, networkServices: NetworkServiceProtocol, coordinate: CLLocationCoordinate2D!)
     
@@ -28,7 +28,7 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
     private weak var view: ForecastViewProtocol?
     private let networkServices: NetworkServiceProtocol!
     private var modelForecastOnSections = [String:[Forecast]]()
-    var sectionCount: Int!
+    var sectionCount: Int = 0
     private var coordinate: CLLocationCoordinate2D!
     private var cityName: String!
     private var calendar = Calendar(identifier: .gregorian)
