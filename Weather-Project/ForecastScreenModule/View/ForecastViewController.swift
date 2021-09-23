@@ -43,7 +43,7 @@ extension ForecastViewController: ForecastViewProtocol {
         tableView.reloadData()
     }
     
-    func failure(error: Error!) {
+    func failure() {
         
     }
 }

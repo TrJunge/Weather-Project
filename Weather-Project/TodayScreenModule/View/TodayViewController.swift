@@ -55,13 +55,6 @@ class TodayViewController: UIViewController {
         
         self.present(activityViewController, animated: true, completion: nil)
     }
-    
-    private func failureNetworkResponse(_ error: Error!) {
-        let alertController = UIAlertController(title: "Error network response", message: "\(error.localizedDescription). Please check the interneet connection&", preferredStyle: .alert)
-        let alertActionOk = UIAlertAction(title: "Ок", style: .default, handler: nil)
-        alertController.addAction(alertActionOk)
-        self.present(alertController, animated: true, completion: nil)
-    }
 }
 
 extension TodayViewController: TodayViewProtocol {
@@ -79,7 +72,7 @@ extension TodayViewController: TodayViewProtocol {
         self.textToShare = textToShare
     }
     
-    func failure(error: Error!) {
+    func failure() {
         imageWeatherView.image = UIImage(systemName: "sun.max")
         nameCountryLabel.text = "-"
         temperatureLabel.text =  "--"
@@ -88,6 +81,5 @@ extension TodayViewController: TodayViewProtocol {
         pressureLabel.text = "- hPa"
         windLabel.text = "- km/h"
         windDirectionLabel.text = "-"
-        failureNetworkResponse(error)
     }
 }

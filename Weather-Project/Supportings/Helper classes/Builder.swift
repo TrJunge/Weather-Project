@@ -9,23 +9,32 @@ import UIKit
 import CoreLocation
 
 protocol Builder {
-    static func createTodayViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController
-    static func createForecastViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController
+    static func createMainTabBarController() -> UITabBarController
+    static func createTodayViewController(model: Today?) -> UIViewController
+    static func createForecastViewController(model: ForecastList?) -> UIViewController
 }
 
 class ModuleBuilder: Builder {
-    static func createTodayViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController {
-        let view = TodayViewController()
-        let networkServices = NetworkService()
-        let presenter = TodayPresenter(view: view, networkServices: networkServices, coordinate: coordinate)
+    static func createMainTabBarController() -> UITabBarController {
+        let view = MainTabBarController()
+        let networkService = NetworkService()
+        let locationService = LocationService()
+        let presenter = MainTabBarPresenter(view: view, networkService: networkService, locationService: locationService)
+        locationService.mainTabBarDelegate = presenter
         view.presenter = presenter
         return view
     }
     
-    static func createForecastViewController(coordinate: CLLocationCoordinate2D!) -> UIViewController {
+    static func createTodayViewController(model: Today?) -> UIViewController {
+        let view = TodayViewController()
+        let presenter = TodayPresenter(view: view, model: model)
+        view.presenter = presenter
+        return view
+    }
+    
+    static func createForecastViewController(model: ForecastList?) -> UIViewController {
         let view = ForecastViewController()
-        let networkServices = NetworkService()
-        let presenter = ForecastPresenter(view: view, networkServices: networkServices, coordinate: coordinate)
+        let presenter = ForecastPresenter(view: view, model: model)
         view.presenter = presenter
         return view
     }

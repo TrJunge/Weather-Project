@@ -8,33 +8,24 @@
 import UIKit
 import CoreLocation
 
-protocol MainTabBarDelegate: AnyObject {
-    func successLocation(coordinate: CLLocationCoordinate2D!)
-    func failureLocation(failureType: FailureResponse.Location, error: Error!)
-}
-
 class MainTabBarController: UITabBarController {
     private var locationService: LocationServiceProtocol!
     private var coordinate: CLLocationCoordinate2D!
     
+    var presenter: MainTabBarPresenterProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupLocationService()
     }
     
     private func setupView() {
         view.backgroundColor = UIColor(named: "background-color")
     }
     
-    private func setupLocationService() {
-        locationService = LocationService()
-        locationService.mainTabBarDelegate = self
-    }
-    
-    private func setTabBarController() {
-        let todayViewController = ModuleBuilder.createTodayViewController(coordinate: coordinate)
-        let forecastViewController = ModuleBuilder.createForecastViewController(coordinate: coordinate)
+    func setTabBarController(_ modelTodayModule: Today!, _ modelForecastModule: ForecastList!) {
+        let todayViewController = ModuleBuilder.createTodayViewController(model: modelTodayModule)
+        let forecastViewController = ModuleBuilder.createForecastViewController(model: modelForecastModule)
         setViewControllers([todayViewController, forecastViewController], animated: true)
         setTabBarItems()
     }
@@ -52,9 +43,9 @@ class MainTabBarController: UITabBarController {
     }
     
     private func warningFailureLocationGeolocation(_ error: Error) {
-        let alertController = UIAlertController(title: "Geolocation failure", message: "\(error.localizedDescription). Please, check geolocation is enabled or not.", preferredStyle: .alert)
-        let alertActionOk = UIAlertAction(title: "Ок", style: .default) { action in
-            self.setTabBarController()
+        let alertController = UIAlertController(title: "Geolocation failure", message: "\(error.localizedDescription)\nPlease, check geolocation is enabled or not.", preferredStyle: .alert)
+        let alertActionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+            self.setTabBarController(nil, nil)
         }
         alertController.addAction(alertActionOk)
         self.present(alertController, animated: true, completion: nil)
@@ -62,8 +53,8 @@ class MainTabBarController: UITabBarController {
     
     private func warningFailureLocationAuthorization() {
         let alertController = UIAlertController(title: "Geolocation failure", message: "Your location was not found. Maybe it is disabled, please check and try again.", preferredStyle: .alert)
-        let alertActionOk = UIAlertAction(title: "Ок", style: .default) { action in
-            self.setTabBarController()
+        let alertActionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+            self.setTabBarController(nil, nil)
         }
         let alertActionSettings = UIAlertAction(title: "Settings", style: .cancel) { action in
             if let url = URL(string: UIApplication.openSettingsURLString){
@@ -76,20 +67,32 @@ class MainTabBarController: UITabBarController {
         alertController.addAction(alertActionOk)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    private func warningFailureNetworkResponse(_ error: Error!) {
+        let alertController = UIAlertController(title: "Error network response", message: "\(error.localizedDescription). Please check the interneet connection.", preferredStyle: .alert)
+        let alertActionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+            self.setTabBarController(nil, nil)
+        }
+        alertController.addAction(alertActionOk)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
-extension MainTabBarController: MainTabBarDelegate {
-    func successLocation(coordinate: CLLocationCoordinate2D!) {
-        self.coordinate = coordinate
-        setTabBarController()
+extension MainTabBarController: MainTabBarViewProtocol {
+    func success(modelTodayModule: Today, modelForecastModule: ForecastList) {
+        setTabBarController(modelTodayModule, modelForecastModule)
     }
     
-    func failureLocation(failureType: FailureResponse.Location, error: Error!) {
+    func failure(failureType: FailureResponse, error: Error!) {
         switch failureType {
-        case .geolocationConnection:
+        case .location(.geolocationConnection):
             warningFailureLocationGeolocation(error)
-        case .privacyAuthorization:
+        case .location(.privacyAuthorization):
             warningFailureLocationAuthorization()
+        case .internet(.connection):
+            warningFailureNetworkResponse(error)
         }
     }
+    
+    
 }
