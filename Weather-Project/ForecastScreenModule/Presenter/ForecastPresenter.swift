@@ -15,7 +15,7 @@ protocol ForecastViewProtocol: AnyObject {
 }
 
 protocol ForecastViewPresenterProtocol: AnyObject {
-    var sectionCount: Int { get set }
+    var sectionCount: Int! { get set }
     
     init(view: ForecastViewProtocol, model: ForecastList?)
     
