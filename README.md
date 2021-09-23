@@ -4,6 +4,7 @@ https://user-images.githubusercontent.com/58320644/134467845-dcc14c85-99b1-4efb-
 
 ## Weather-Project interface 
 ![IMG_0086](https://user-images.githubusercontent.com/58320644/134467990-f111770f-695f-4ad5-916f-2970d14a523d.PNG)
+<img src="https://user-images.githubusercontent.com/58320644/134467990-f111770f-695f-4ad5-916f-2970d14a523d.PNG" width="100">
 
 ![IMG_0097](https://user-images.githubusercontent.com/58320644/134468089-0e14ae93-b5f7-40d1-b100-4c367876dfab.PNG)
 
