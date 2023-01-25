@@ -46,7 +46,7 @@ struct ForecastList {
 
 struct Forecast {
     var weather: WeatherForecast
-    var temperature: String
+    var temperature: String = ""
     var date: String = ""
     var time: String = ""
     
@@ -72,8 +72,10 @@ struct Forecast {
 }
 
 struct WeatherForecast {
-    var icon: String
+    var icon: String = ""
     var description: String = ""
+    
+    init() {}
     
     init(model: WeatherForecastResponse) {
         icon = WeatherIcons.getImage(model.icon)

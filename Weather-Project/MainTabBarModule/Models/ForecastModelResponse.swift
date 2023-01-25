@@ -14,6 +14,8 @@ struct ForecastResponseList: Codable {
 struct ForecastResponse: Codable {
     var weather: [WeatherForecastResponse]
     var main: MainForecastResponse
+    var wind: WindTodayResponse
+    var clouds: CloudsTodayResponse
     var dt_txt: String
 }
 
@@ -25,10 +27,20 @@ struct WeatherForecastResponse: Codable {
 
 struct MainForecastResponse: Codable {
     var temp: Float
-    var pressure: Float
-    var humidity: Float
+    var pressure: Int
+    var humidity: Int
+}
+
+struct WindTodayResponse: Codable {
+    var speed: Float
+    var deg: Int
+}
+
+struct CloudsTodayResponse: Codable {
+    var all: Int
 }
 
 struct CityForecastResponse: Codable {
+    var country: String
     var name: String
 }

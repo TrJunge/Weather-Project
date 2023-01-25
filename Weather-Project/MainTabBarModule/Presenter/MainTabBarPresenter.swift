@@ -32,25 +32,7 @@ class MainTabBarPresenter: MainTabBarPresenterProtocol {
         self.locationService = locationService
     }
     
-    private func getTodayModuleNetworkResponse(_ coordinate: CLLocationCoordinate2D) {
-        let latitude = coordinate.latitude
-        let longitude = coordinate.longitude
-        
-        self.networkServices.request(latitude: latitude.description, longitude: longitude.description, responseOn: TodayResponse.self) { [weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let response):
-                    let modelTodayModule = Today(model: response)
-                    self.getForecastModuleNetworkResponse(coordinate, modelTodayModule)
-                case .failure(let error):
-                    self.view?.failure(failureType: error)
-                }
-            }
-        }
-    }
-    
-    private func getForecastModuleNetworkResponse(_ coordinate: CLLocationCoordinate2D, _ modelTodayModule: Today) {
+    private func getForecastModuleNetworkResponse(_ coordinate: CLLocationCoordinate2D) {
         let latitude = coordinate.latitude
         let longitude = coordinate.longitude
         
@@ -59,6 +41,7 @@ class MainTabBarPresenter: MainTabBarPresenterProtocol {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
+                    let modelTodayModule = Today(model: response)
                     let modelForecastModule = ForecastList(model: response)
                     self.view?.success(modelTodayModule: modelTodayModule, modelForecastModule: modelForecastModule)
                 case .failure(let error):
@@ -68,12 +51,8 @@ class MainTabBarPresenter: MainTabBarPresenterProtocol {
         }
     }
     
-    private func getNetworkRespones(coordinate: CLLocationCoordinate2D) {
-        getTodayModuleNetworkResponse(coordinate)
-    }
-    
     func successLocation(coordinate: CLLocationCoordinate2D) {
-        getNetworkRespones(coordinate: coordinate)
+        getForecastModuleNetworkResponse(coordinate)
     }
     
     func failureLocation(failureType: FailureResponse.Location) {

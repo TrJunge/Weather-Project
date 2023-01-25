@@ -8,7 +8,7 @@
 import Foundation
 
 struct Today {
-    var name: String
+    var name: String = ""
     var weather: WeatherToday
     var main: MainToday
     var wind: WindToday
@@ -16,23 +16,34 @@ struct Today {
     var sys: CountryToday
     var shareButton: ShareButton
     
-    init(model: TodayResponse) {
-        name = model.name
-        weather = WeatherToday(model: model.weather[0])
-        main = MainToday(model: model.main)
-        wind = WindToday(model: model.wind)
-        clouds = CloudsToday(model: model.clouds)
-        sys = CountryToday(model: model.sys)
-        shareButton = ShareButton(name: name, modelWeather: weather, modelMain: main, modelWind: wind, modelClouds: clouds)
+    init(model: ForecastResponseList) {
+        name = model.city.name
+        if let forecastModel = model.list.first {
+            weather = WeatherToday(model: forecastModel.weather[0])
+            main = MainToday(model: forecastModel.main)
+            wind = WindToday(model: forecastModel.wind)
+            clouds = CloudsToday(model: forecastModel.clouds)
+            sys = CountryToday(model: model.city)
+            shareButton = ShareButton(name: name, modelWeather: weather, modelMain: main, modelWind: wind, modelClouds: clouds)
+        } else {
+            weather = WeatherToday()
+            main = MainToday()
+            wind = WindToday()
+            clouds = CloudsToday()
+            sys = CountryToday()
+            shareButton = ShareButton(name: name, modelWeather: weather, modelMain: main, modelWind: wind, modelClouds: clouds)
+        }
     }
 }
 
 struct WeatherToday {
-    var main: String
-    var description: String
-    var icon: String
+    var main: String = ""
+    var description: String = ""
+    var icon: String = ""
     
-    init(model: WeatherTodayResponse) {
+    init() {}
+    
+    init(model: WeatherForecastResponse) {
         main = model.main
         description = model.description
         icon = WeatherIcons.getImage(model.icon)
@@ -40,35 +51,41 @@ struct WeatherToday {
 }
 
 struct MainToday {
-    var temp: String
-    var pressure: String
-    var humidity: String
+    var temp: String = ""
+    var pressure: String = ""
+    var humidity: String = ""
     
-    init(model: MainTodayResponse) {
-        temp = String(Int(model.temp))
-        pressure = String(Int(model.pressure))
-        humidity = String(Int(model.humidity))
+    init() {}
+    
+    init(model: MainForecastResponse) {
+        temp = String(model.temp)
+        pressure = String(model.pressure)
+        humidity = String(model.humidity)
     }
 }
 
 struct WindToday {
-    var speed: String
+    var speed: String = ""
     var direction: String = ""
+    
+    init() {}
     
     init(model: WindTodayResponse) {
         self.speed = String(model.speed)
         self.direction = setWindDirection(model.deg)
     }
     
-    private func setWindDirection(_ degrees: Float) -> String {
+    private func setWindDirection(_ degrees: Int) -> String {
         let directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
-        let i: Int = Int((degrees + 11.25)/22.5)
+        let i = Int((Double(degrees) + 11.25)/22.5)
         return directions[i % 16]
     }
 }
 
 struct CloudsToday {
-    var all: String
+    var all: String = ""
+    
+    init() {}
     
     init(model: CloudsTodayResponse) {
         self.all = String(Int(model.all))
@@ -76,9 +93,11 @@ struct CloudsToday {
 }
 
 struct CountryToday {
-    var country: String
+    var country: String = ""
     
-    init(model: CountryTodayResponse) {
+    init() {}
+    
+    init(model: CityForecastResponse) {
         self.country = model.country
     }
 }
@@ -86,8 +105,10 @@ struct CountryToday {
 struct ShareButton {
     var text: String = ""
     
-    init(name: String, modelWeather: WeatherToday, modelMain: MainToday, modelWind:WindToday, modelClouds: CloudsToday) {
-        self.text =  setTextForShare(name, modelWeather, modelMain, modelWind, modelClouds)
+    init() {}
+    
+    init(name: String, modelWeather: WeatherToday, modelMain: MainToday, modelWind: WindToday, modelClouds: CloudsToday) {
+        self.text = setTextForShare(name, modelWeather, modelMain, modelWind, modelClouds)
     }
     
     private func setTextForShare(_ name: String, _ modelWeather: WeatherToday, _ modelMain: MainToday, _ modelWind:WindToday, _ modelClouds: CloudsToday) -> String {

@@ -22,7 +22,6 @@
 		D8E128E526F731550094673F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E128E426F731550094673F /* SceneDelegate.swift */; };
 		D8E128EC26F7315C0094673F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8E128EB26F7315C0094673F /* Assets.xcassets */; };
 		D8E128EF26F7315C0094673F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8E128ED26F7315C0094673F /* LaunchScreen.storyboard */; };
-		D8E1291526F7331D0094673F /* TodayModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1291426F7331D0094673F /* TodayModelResponse.swift */; };
 		D8E1291726F733260094673F /* ForecastModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1291626F733260094673F /* ForecastModelResponse.swift */; };
 		D8E1291B26F733A40094673F /* TodayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1291A26F733A40094673F /* TodayPresenter.swift */; };
 		D8E1291E26F733C10094673F /* ForecastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1291D26F733C10094673F /* ForecastPresenter.swift */; };
@@ -68,7 +67,6 @@
 		D8E128F026F7315C0094673F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8E128F526F7315D0094673F /* Weather-ProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Weather-ProjectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E1290026F7315D0094673F /* Weather-ProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Weather-ProjectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8E1291426F7331D0094673F /* TodayModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayModelResponse.swift; sourceTree = "<group>"; };
 		D8E1291626F733260094673F /* ForecastModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastModelResponse.swift; sourceTree = "<group>"; };
 		D8E1291A26F733A40094673F /* TodayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenter.swift; sourceTree = "<group>"; };
 		D8E1291D26F733C10094673F /* ForecastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastPresenter.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				D8E1291626F733260094673F /* ForecastModelResponse.swift */,
-				D8E1291426F7331D0094673F /* TodayModelResponse.swift */,
 				D89DA8C22980BB6F00D026FD /* ErrorResponse.swift */,
 			);
 			path = Models;
@@ -407,7 +404,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8E1291526F7331D0094673F /* TodayModelResponse.swift in Sources */,
 				D80E804026F7E701006F5EA7 /* TableViewCell.swift in Sources */,
 				D8E128E326F731550094673F /* AppDelegate.swift in Sources */,
 				D80E803126F74BEF006F5EA7 /* MainTabBarController.swift in Sources */,
