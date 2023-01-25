@@ -5,13 +5,15 @@
 //  Created by Влад Артемкин on 21.09.21.
 //
 
-enum FailureResponse {
+enum FailureResponse: Error {
     enum Location {
-        case privacyAuthorization
-        case geolocationConnection
+        case privacyAuthorization(message: String)
+        case geolocationConnection(message: String)
     }
     enum Internet {
-        case connection
+        case unknown(message: String)
+        case connection(message: String)
+        case data(message: String)
     }
     
     case location(_ Location: Location)

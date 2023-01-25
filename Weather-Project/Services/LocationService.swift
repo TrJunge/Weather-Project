@@ -34,7 +34,7 @@ extension LocationService: CLLocationManagerDelegate {
         case .authorizedAlways, .authorizedWhenInUse:
             manager.startUpdatingLocation()
         case .denied:
-            mainTabBarDelegate?.failureLocation(failureType: .privacyAuthorization, error: nil)
+            mainTabBarDelegate?.failureLocation(failureType: .privacyAuthorization(message: "Location denied"))
         default:
             print("Other CLAuthorizationStatus ")
         }
@@ -48,6 +48,6 @@ extension LocationService: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        mainTabBarDelegate?.failureLocation(failureType: .geolocationConnection, error: error)
+        mainTabBarDelegate?.failureLocation(failureType: .geolocationConnection(message: error.localizedDescription))
     }
 }

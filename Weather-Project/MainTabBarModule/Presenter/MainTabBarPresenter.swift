@@ -11,14 +11,14 @@ import UIKit
 
 protocol MainTabBarViewProtocol: AnyObject {
     func success(modelTodayModule: Today, modelForecastModule: ForecastList)
-    func failure(failureType: FailureResponse, error: Error?)
+    func failure(failureType: FailureResponse)
 }
 
 protocol MainTabBarPresenterProtocol: AnyObject {
     init(view: MainTabBarViewProtocol, networkService: NetworkServiceProtocol, locationService: LocationServiceProtocol)
     
     func successLocation(coordinate: CLLocationCoordinate2D)
-    func failureLocation(failureType: FailureResponse.Location, error: Error?)
+    func failureLocation(failureType: FailureResponse.Location)
 }
 
 class MainTabBarPresenter: MainTabBarPresenterProtocol {
@@ -44,7 +44,7 @@ class MainTabBarPresenter: MainTabBarPresenterProtocol {
                     let modelTodayModule = Today(model: response)
                     self.getForecastModuleNetworkResponse(coordinate, modelTodayModule)
                 case .failure(let error):
-                    self.view?.failure(failureType: .internet(.connection), error: error)
+                    self.view?.failure(failureType: error)
                 }
             }
         }
@@ -62,7 +62,7 @@ class MainTabBarPresenter: MainTabBarPresenterProtocol {
                     let modelForecastModule = ForecastList(model: response)
                     self.view?.success(modelTodayModule: modelTodayModule, modelForecastModule: modelForecastModule)
                 case .failure(let error):
-                    self.view?.failure(failureType: .internet(.connection), error: error)
+                    self.view?.failure(failureType: error)
                 }
             }
         }
@@ -76,8 +76,8 @@ class MainTabBarPresenter: MainTabBarPresenterProtocol {
         getNetworkRespones(coordinate: coordinate)
     }
     
-    func failureLocation(failureType: FailureResponse.Location, error: Error?) {
-        view?.failure(failureType: .location(failureType), error: error)
+    func failureLocation(failureType: FailureResponse.Location) {
+        view?.failure(failureType: .location(failureType))
     }
 }
 

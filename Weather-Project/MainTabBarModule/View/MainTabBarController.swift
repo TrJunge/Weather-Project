@@ -41,8 +41,8 @@ class MainTabBarController: UITabBarController {
         tabBarItem2?.title = "Forecast"
     }
     
-    private func warningFailureLocationGeolocation(_ error: Error?) {
-        let alertController = UIAlertController(title: "Geolocation failure", message: "\(error?.localizedDescription ?? "")\nPlease, check geolocation is enabled or not.", preferredStyle: .alert)
+    private func warningFailureLocationGeolocation(_ message: String) {
+        let alertController = UIAlertController(title: "Geolocation failure", message: "\(message)\nPlease, check geolocation is enabled or not.", preferredStyle: .alert)
         let alertActionOk = UIAlertAction(title: "Ок", style: .default) { _ in
             self.setTabBarController(nil, nil)
         }
@@ -67,8 +67,8 @@ class MainTabBarController: UITabBarController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func warningFailureNetworkResponse(_ error: Error?) {
-        let alertController = UIAlertController(title: "Error network response", message: "\(error?.localizedDescription ?? ""). Please check the interneet connection.", preferredStyle: .alert)
+    private func warningFailureNetworkResponse(_ message: String) {
+        let alertController = UIAlertController(title: "Error network response", message: "\(message). Please check the interneet connection.", preferredStyle: .alert)
         let alertActionOk = UIAlertAction(title: "Ок", style: .default) { _ in
             self.setTabBarController(nil, nil)
         }
@@ -82,14 +82,16 @@ extension MainTabBarController: MainTabBarViewProtocol {
         setTabBarController(modelTodayModule, modelForecastModule)
     }
     
-    func failure(failureType: FailureResponse, error: Error?) {
+    func failure(failureType: FailureResponse) {
         switch failureType {
-        case .location(.geolocationConnection):
-            warningFailureLocationGeolocation(error)
-        case .location(.privacyAuthorization):
+        case .location(.geolocationConnection(let message)):
+            warningFailureLocationGeolocation(message)
+        case .location(.privacyAuthorization(_)):
             warningFailureLocationAuthorization()
-        case .internet(.connection):
-            warningFailureNetworkResponse(error)
+        case .internet(.connection(let message)),
+             .internet(.unknown(message: let message)),
+             .internet(.data(message: let message)):
+            warningFailureNetworkResponse(message)
         }
     }
 }

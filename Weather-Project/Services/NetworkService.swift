@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func request<T: Decodable>(latitude: String, longitude: String, responseOn: T.Type, completion: @escaping (Result<T, Error>) -> Void)
+    func request<T: Decodable>(latitude: String, longitude: String, responseOn: T.Type, completion: @escaping (Result<T, FailureResponse>) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -16,18 +16,19 @@ class NetworkService: NetworkServiceProtocol {
     private static let keyAPI = "603cbab18b03ffb19439cac48a49168e"
     private let mainUrlString = "https://api.openweathermap.org/data/2.5/forecast?units=\(units)&appid=\(keyAPI)"
     
-    func request<T: Decodable>(latitude: String, longitude: String, responseOn: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
+    func request<T: Decodable>(latitude: String, longitude: String, responseOn: T.Type, completion: @escaping (Result<T, FailureResponse>) -> Void) {
         let urlString = mainUrlString + "lat=\(latitude)&lon=\(longitude)"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
             DispatchQueue.global().async {
-                if let error = error { return completion(.failure(error)) }
+                if let error = error { return completion(.failure(.internet(.unknown(message: error.localizedDescription)))) }
                 guard let data = data else { return }
                 do {
                     let dataJSON = try JSONDecoder().decode(responseOn, from: data)
                     completion(.success(dataJSON))
                 } catch let errorJSON {
-                    completion(.failure(errorJSON))
+                    let errorData = try? JSONDecoder().decode(ErrorResponse.self, from: data)
+                    completion(.failure(.internet(.data(message: errorData?.message ?? errorJSON.localizedDescription))))
                 }
             }
         }.resume()
