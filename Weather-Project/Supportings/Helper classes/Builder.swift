@@ -27,8 +27,7 @@ class ModuleBuilder: Builder {
     
     static func createTodayViewController(model: Today?) -> UIViewController {
         let view = TodayViewController()
-        let presenter = TodayPresenter(view: view, model: model)
-        view.presenter = presenter
+        _ = TodayPresenter(view: view, model: model)
         return view
     }
     

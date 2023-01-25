@@ -84,7 +84,7 @@ struct CountryToday {
 }
 
 struct ShareButton {
-    var text: String!
+    var text: String = ""
     
     init(name: String, modelWeather: WeatherToday, modelMain: MainToday, modelWind:WindToday, modelClouds: CloudsToday) {
         self.text =  setTextForShare(name, modelWeather, modelMain, modelWind, modelClouds)

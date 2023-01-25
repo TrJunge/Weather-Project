@@ -8,14 +8,12 @@
 import UIKit
 
 class ForecastViewController: UIViewController {
+    private lazy var navigationBar: UINavigationBar = setNavigationBar()
+    private lazy var tableView: UITableView = setTableView()
+    var presenter: ForecastViewPresenterProtocol?
     
-    lazy var navigationBar: UINavigationBar = setNavigationBar()
-    lazy var tableView: UITableView = setTableView()
-    
-    var presenter: ForecastViewPresenterProtocol!
-    
-    let cellIdentifier = "Cell"
-    let headerIdentifier = "Header"
+    private let cellIdentifier = "Cell"
+    private let headerIdentifier = "Header"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,26 +41,24 @@ extension ForecastViewController: ForecastViewProtocol {
         tableView.reloadData()
     }
     
-    func failure() {
-        
-    }
+    func failure() {}
 }
 
 // MARK: UITableViewDelegate
 extension ForecastViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter.sectionCount
+        presenter?.sectionCount ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.numberOfRowsIn(section: section)
+        presenter?.numberOfRowsIn(section: section) ?? 0
     }
 }
 
 // MARK:  UITableViewDataSource
 extension ForecastViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        presenter.setSectionTitle(section)
+        presenter?.setSectionTitle(section)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -78,9 +74,50 @@ extension ForecastViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TableViewCell,
+              let presenter = presenter else {
             return UITableViewCell()
         }
         return presenter.setCell(cell, indexPath)
+    }
+}
+
+// MARK: setupSubviews and setupConstraint
+private extension ForecastViewController {
+    func setNavigationBar() -> UINavigationBar {
+        let navBar = UINavigationBar()
+        navBar.prefersLargeTitles = false
+        navBar.isTranslucent = false
+        navBar.barTintColor = UIColor(named: "background-color")
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        let navItem = UINavigationItem()
+        navBar.setItems([navItem], animated: true);
+        return navBar
+    }
+    
+    func setTableView() -> UITableView {
+        let tableView = UITableView(frame: view.frame, style: .plain)
+        tableView.backgroundColor = UIColor(named: "background-color")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: headerIdentifier)
+        tableView.rowHeight = 100
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }
+    
+    func setupSubview() {
+        view.addSubview(navigationBar)
+        view.addSubview(tableView)
+    }
+    
+    func setupConstraint() {
+        navigationBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
+        navigationBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        navigationBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

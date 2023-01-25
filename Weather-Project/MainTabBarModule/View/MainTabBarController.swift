@@ -9,10 +9,9 @@ import UIKit
 import CoreLocation
 
 class MainTabBarController: UITabBarController {
-    private var locationService: LocationServiceProtocol!
-    private var coordinate: CLLocationCoordinate2D!
-    
-    var presenter: MainTabBarPresenterProtocol!
+    private var locationService: LocationServiceProtocol?
+    private var coordinate: CLLocationCoordinate2D?
+    var presenter: MainTabBarPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +22,7 @@ class MainTabBarController: UITabBarController {
         view.backgroundColor = UIColor(named: "background-color")
     }
     
-    func setTabBarController(_ modelTodayModule: Today!, _ modelForecastModule: ForecastList!) {
+    func setTabBarController(_ modelTodayModule: Today?, _ modelForecastModule: ForecastList?) {
         let todayViewController = ModuleBuilder.createTodayViewController(model: modelTodayModule)
         let forecastViewController = ModuleBuilder.createForecastViewController(model: modelForecastModule)
         setViewControllers([todayViewController, forecastViewController], animated: true)
@@ -31,19 +30,19 @@ class MainTabBarController: UITabBarController {
     }
     
     private func setTabBarItems() {
-        let tabBarItem1 = self.tabBar.items![0]
-        tabBarItem1.image = UIImage(systemName: "sun.max")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        tabBarItem1.selectedImage = UIImage(systemName: "sun.max")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        tabBarItem1.title = "Today"
+        let tabBarItem1 = self.tabBar.items?[0]
+        tabBarItem1?.image = UIImage(systemName: "sun.max")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        tabBarItem1?.selectedImage = UIImage(systemName: "sun.max")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        tabBarItem1?.title = "Today"
 
-        let tabBarItem2 = self.tabBar.items![1]
-        tabBarItem2.image = UIImage(systemName: "cloud.moon.rain")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        tabBarItem2.selectedImage = UIImage(systemName: "cloud.moon.rain")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        tabBarItem2.title = "Forecast"
+        let tabBarItem2 = self.tabBar.items?[1]
+        tabBarItem2?.image = UIImage(systemName: "cloud.moon.rain")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        tabBarItem2?.selectedImage = UIImage(systemName: "cloud.moon.rain")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        tabBarItem2?.title = "Forecast"
     }
     
-    private func warningFailureLocationGeolocation(_ error: Error) {
-        let alertController = UIAlertController(title: "Geolocation failure", message: "\(error.localizedDescription)\nPlease, check geolocation is enabled or not.", preferredStyle: .alert)
+    private func warningFailureLocationGeolocation(_ error: Error?) {
+        let alertController = UIAlertController(title: "Geolocation failure", message: "\(error?.localizedDescription ?? "")\nPlease, check geolocation is enabled or not.", preferredStyle: .alert)
         let alertActionOk = UIAlertAction(title: "Ок", style: .default) { _ in
             self.setTabBarController(nil, nil)
         }
@@ -68,8 +67,8 @@ class MainTabBarController: UITabBarController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func warningFailureNetworkResponse(_ error: Error!) {
-        let alertController = UIAlertController(title: "Error network response", message: "\(error.localizedDescription). Please check the interneet connection.", preferredStyle: .alert)
+    private func warningFailureNetworkResponse(_ error: Error?) {
+        let alertController = UIAlertController(title: "Error network response", message: "\(error?.localizedDescription ?? ""). Please check the interneet connection.", preferredStyle: .alert)
         let alertActionOk = UIAlertAction(title: "Ок", style: .default) { _ in
             self.setTabBarController(nil, nil)
         }
@@ -83,7 +82,7 @@ extension MainTabBarController: MainTabBarViewProtocol {
         setTabBarController(modelTodayModule, modelForecastModule)
     }
     
-    func failure(failureType: FailureResponse, error: Error!) {
+    func failure(failureType: FailureResponse, error: Error?) {
         switch failureType {
         case .location(.geolocationConnection):
             warningFailureLocationGeolocation(error)
@@ -93,6 +92,4 @@ extension MainTabBarController: MainTabBarViewProtocol {
             warningFailureNetworkResponse(error)
         }
     }
-    
-    
 }

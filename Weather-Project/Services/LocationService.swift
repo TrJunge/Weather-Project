@@ -8,12 +8,12 @@
 import CoreLocation
 
 protocol LocationServiceProtocol {
-    var mainTabBarDelegate: MainTabBarPresenterProtocol! { get set }
+    var mainTabBarDelegate: MainTabBarPresenterProtocol? { get set }
 }
 
 class LocationService: NSObject, LocationServiceProtocol {
     fileprivate let locationManager = CLLocationManager()
-    weak var mainTabBarDelegate: MainTabBarPresenterProtocol!
+    weak var mainTabBarDelegate: MainTabBarPresenterProtocol?
     override init() {
         super.init()
         setupLocationManager()
@@ -34,7 +34,7 @@ extension LocationService: CLLocationManagerDelegate {
         case .authorizedAlways, .authorizedWhenInUse:
             manager.startUpdatingLocation()
         case .denied:
-            mainTabBarDelegate.failureLocation(failureType: .privacyAuthorization, error: nil)
+            mainTabBarDelegate?.failureLocation(failureType: .privacyAuthorization, error: nil)
         default:
             print("Other CLAuthorizationStatus ")
         }
@@ -43,11 +43,11 @@ extension LocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             locationManager.stopUpdatingLocation()
-            mainTabBarDelegate.successLocation(coordinate: location.coordinate)
+            mainTabBarDelegate?.successLocation(coordinate: location.coordinate)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        mainTabBarDelegate.failureLocation(failureType: .geolocationConnection, error: error)
+        mainTabBarDelegate?.failureLocation(failureType: .geolocationConnection, error: error)
     }
 }

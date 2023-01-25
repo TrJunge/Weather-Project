@@ -15,7 +15,7 @@ protocol ForecastViewProtocol: AnyObject {
 }
 
 protocol ForecastViewPresenterProtocol: AnyObject {
-    var sectionCount: Int! { get set }
+    var sectionCount: Int { get set }
     
     init(view: ForecastViewProtocol, model: ForecastList?)
     
@@ -26,10 +26,10 @@ protocol ForecastViewPresenterProtocol: AnyObject {
 
 class ForecastPresenter: ForecastViewPresenterProtocol {
     private weak var view: ForecastViewProtocol?
-    private let model: ForecastList!
-    var sectionCount: Int!
+    private let model: ForecastList?
+    var sectionCount: Int
   
-    private var coordinate: CLLocationCoordinate2D!
+    private var coordinate = CLLocationCoordinate2D()
     private var calendar = Calendar(identifier: .gregorian)
     
     required init(view: ForecastViewProtocol, model: ForecastList?) {
@@ -40,12 +40,12 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
     }
     
     func numberOfRowsIn(section: Int) -> Int {
-        guard let countRow = model.forecastBySection[String(section)]?.count else { return 0 }
+        guard let countRow = model?.forecastBySection[String(section)]?.count else { return 0 }
         return countRow
     }
     
     func setCell(_ cell: TableViewCell, _ indexPath: IndexPath) -> UITableViewCell {
-        guard let weathersInSections = model.forecastBySection["\(indexPath.section)"] else {
+        guard let weathersInSections = model?.forecastBySection["\(indexPath.section)"] else {
             return UITableViewCell()
         }
         let weatherItem = weathersInSections[indexPath.row]
@@ -61,9 +61,7 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
     }
     
     func setSectionTitle(_ section: Int) -> String {
-        guard let weatherInSection = model.forecastBySection["\(section)"]?[0] else {
-            return "Error"
-        }
+        guard let weatherInSection = model?.forecastBySection["\(section)"]?[0] else { return "Error" }
         let weatherDateArray = weatherInSection.date.components(separatedBy: "-")
         
         var dateComponents = DateComponents()
@@ -71,37 +69,26 @@ class ForecastPresenter: ForecastViewPresenterProtocol {
         dateComponents.month = Int(weatherDateArray[1])
         dateComponents.day = Int(weatherDateArray[2])
         
-        let weatherDate = calendar.date(from: dateComponents)!
+        guard let weatherDate = calendar.date(from: dateComponents) else { return "Error" }
         let numberWeekDay = calendar.component(.weekday, from: weatherDate)
         return setSectionOnDate(numberWeekDay).uppercased()
     }
     
     private func setSectionOnDate(_ weekDay: Int) -> String {
         switch weekDay {
-        case 1:
-            return "Sunday"
-        case 2:
-            return "Monday"
-        case 3:
-            return "Tuesday"
-        case 4:
-            return "Wednesday"
-        case 5:
-            return "Thursday"
-        case 6:
-            return "Friday"
-        case 7:
-            return "Saturday"
-        default:
-            return "Data error"
+        case 1: return "Sunday"
+        case 2: return "Monday"
+        case 3: return "Tuesday"
+        case 4: return "Wednesday"
+        case 5: return "Thursday"
+        case 6: return "Friday"
+        case 7: return "Saturday"
+        default: return "Data error"
         }
     }
     
     private func setComponents() {
-        guard model != nil else {
-            view?.failure()
-            return
-        }
+        guard let model = model else { view?.failure(); return }
         view?.success(navigationBarTitle: model.cityName)
     }
 }

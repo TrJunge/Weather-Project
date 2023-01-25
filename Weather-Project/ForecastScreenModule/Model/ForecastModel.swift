@@ -6,12 +6,14 @@
 //
 
 import Foundation
+
 struct ForecastList {
     var cityName: String
-    var forecastBySection: [String:[Forecast]]!
+    var forecastBySection = [String:[Forecast]]()
+    
     init(model: ForecastResponseList) {
         cityName = model.city.name
-        forecastBySection = setModelForecastModule(model: model)
+        forecastBySection = self.setModelForecastModule(model: model)
     }
     
     private func setModelForecastModule(model: ForecastResponseList) -> [String:[Forecast]] {
@@ -34,11 +36,9 @@ struct ForecastList {
                         indexSection += 1
                         continue markIndexSection
                     }
-                
                 }
                 
             }
-            
         }
         return newForecastBySection
     }
@@ -47,14 +47,14 @@ struct ForecastList {
 struct Forecast {
     var weather: WeatherForecast
     var temperature: String
-    var date: String!
-    var time: String!
+    var date: String = ""
+    var time: String = ""
     
     init(model: ForecastResponse) {
         weather = WeatherForecast(model: model.weather[0])
         temperature = "\(Int(model.main.temp))ºC"
-        date = setDate(model.dt_txt)
-        time = setTime(model.dt_txt)
+        date = self.setDate(model.dt_txt)
+        time = self.setTime(model.dt_txt)
     }
     
     private func setDate(_ date: String) -> String {
@@ -73,18 +73,18 @@ struct Forecast {
 
 struct WeatherForecast {
     var icon: String
-    var description: String!
+    var description: String = ""
     
     init(model: WeatherForecastResponse) {
         icon = WeatherIcons.getImage(model.icon)
-        description = setDescription(model.description)
+        description = self.setDescription(model.description)
     }
     
     private func setDescription(_ description: String) -> String {
         let splitedDescription = description.split(separator: " ")
         var newDescription = ""
         splitedDescription.forEach { desc in
-            let decsFirstUpperChar = desc.first!.uppercased()
+            guard let decsFirstUpperChar = desc.first?.uppercased() else { return }
             newDescription += decsFirstUpperChar + desc[desc.index(desc.startIndex, offsetBy: 1)...] + " "
         }
         return newDescription
